@@ -26,6 +26,14 @@
     "TOMORROW": "Mañana",
     "VIEW_ALL": "Ver Todo"
   },
+  "LOGIN": {
+    "WELCOME_BACK": "¡Bienvenido de Nuevo!",
+    "USERNAME": "Usuario",
+    "PASSWORD": "Contraseña",
+    "SIGN_IN": "Iniciar sesión",
+    "NO_ACCOUNT": "¿No tienes una cuenta?",
+    "SIGN_UP": "Regístrate"
+  },
   "DASHBOARD": {
     "WELCOME_BACK": "¡Bienvenido de nuevo!",
     "MY_CROPS": "Mis cultivos",

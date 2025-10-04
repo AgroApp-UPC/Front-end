@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SidebarService } from '../../../infrastructure/services/sidebar.service';
 import { LanguageSwitcher } from '../language-switcher/language-switcher.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +16,17 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class NavbarComponent {
   private sidebarService = inject(SidebarService);
+  private router = inject(Router);
+  private platformId = inject(PLATFORM_ID);
 
   toggleSidebar() {
     this.sidebarService.toggleSidebar();
+  }
+
+  logout() {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('isLoggedIn');
+      this.router.navigate(['/login']);
+    }
   }
 }

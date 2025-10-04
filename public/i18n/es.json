@@ -1,0 +1,25 @@
+{
+  "NAVBAR": {
+    "HOME": "Inicio",
+    "MENU": "Menú"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Panel de control",
+    "MY_CROPS": "Mis cultivos",
+    "MY_FIELDS": "Mis campos",
+    "MY_TASKS": "Mis tareas",
+    "COMMUNITY": "Comunidad",
+    "MY_LOCATION": "Mi ubicación",
+    "LOCATION_NAME": "Fundo Santa Rosa"
+  },
+  "LANGUAGE": {
+    "SELECT": "Seleccionar idioma",
+    "ENGLISH": "Inglés",
+    "SPANISH": "Español"
+  },
+  "COMMON": {
+    "WELCOME": "Bienvenido",
+    "LOGOUT": "Cerrar sesión",
+    "PROFILE": "Perfil"
+  }
+}

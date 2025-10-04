@@ -1,0 +1,25 @@
+{
+  "NAVBAR": {
+    "HOME": "Home",
+    "MENU": "Menu"
+  },
+  "SIDEBAR": {
+    "DASHBOARD": "Dashboard",
+    "MY_CROPS": "My crops",
+    "MY_FIELDS": "My fields",
+    "MY_TASKS": "My tasks",
+    "COMMUNITY": "Community",
+    "MY_LOCATION": "My location",
+    "LOCATION_NAME": "Fundo Santa Rosa"
+  },
+  "LANGUAGE": {
+    "SELECT": "Select language",
+    "ENGLISH": "English",
+    "SPANISH": "Spanish"
+  },
+  "COMMON": {
+    "WELCOME": "Welcome",
+    "LOGOUT": "Logout",
+    "PROFILE": "Profile"
+  }
+}

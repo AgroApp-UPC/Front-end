@@ -26,6 +26,14 @@
     "TOMORROW": "Tomorrow",
     "VIEW_ALL": "View All"
   },
+  "LOGIN": {
+    "WELCOME_BACK": "Welcome Back!",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "SIGN_IN": "Sign in",
+    "NO_ACCOUNT": "Don't have an account?",
+    "SIGN_UP": "Sign up"
+  },
   "DASHBOARD": {
     "WELCOME_BACK": "Welcome back!",
     "MY_CROPS": "My crops",

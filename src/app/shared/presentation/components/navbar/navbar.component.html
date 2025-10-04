@@ -13,7 +13,7 @@
     <button mat-icon-button class="nav-icon" [title]="'COMMON.PROFILE' | translate">
       <mat-icon>account_circle</mat-icon>
     </button>
-    <button mat-icon-button class="nav-icon" [title]="'COMMON.LOGOUT' | translate">
+    <button mat-icon-button class="nav-icon" (click)="logout()" [title]="'COMMON.LOGOUT' | translate">
       <mat-icon>logout</mat-icon>
     </button>
   </div>

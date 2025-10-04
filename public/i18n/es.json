@@ -20,6 +20,44 @@
   "COMMON": {
     "WELCOME": "Bienvenido",
     "LOGOUT": "Cerrar sesión",
-    "PROFILE": "Perfil"
+    "PROFILE": "Perfil",
+    "DAYS": "Días",
+    "TODAY": "Hoy",
+    "TOMORROW": "Mañana",
+    "VIEW_ALL": "Ver Todo"
+  },
+  "DASHBOARD": {
+    "WELCOME_BACK": "¡Bienvenido de nuevo!",
+    "MY_CROPS": "Mis cultivos",
+    "UPCOMING_HARVEST_DATE": "Próxima fecha de cosecha",
+    "UPCOMING_TASKS": "Tareas próximas",
+    "LATEST_RECOMMENDATIONS": "Últimas Recomendaciones",
+    "IN_DAYS": "En {{count}} días",
+    "CROPS": {
+      "TOMATO": "Tomate",
+      "LETTUCE": "Lechuga",
+      "CARROT": "Zanahoria",
+      "WHEAT": "Trigo",
+      "CACAO": "Cacao",
+      "COFFEE": "Café"
+    },
+    "LOCATIONS": {
+      "PARCELA_SAN_JOSE": "Parcela San José",
+      "FUNDO_LOS_PINOS": "Fundo Los Pinos",
+      "FUNDO_SANTA_ROSA": "Fundo Santa Rosa"
+    },
+    "TASKS": {
+      "WATER_MAIZE": "Regar Maíz",
+      "FERTILIZE_POTATOES": "Fertilizar Papas",
+      "PEST_INSPECTION_TOMATO": "Inspección de plagas para Tomate"
+    },
+    "RECOMMENDATIONS": {
+      "POTATO_FIELD": "Campo de Papas:",
+      "POTATO_ADVICE": "Necesita más exposición solar – ajustar redes de sombra.",
+      "MAIZE_FIELD": "Campo de Maíz:",
+      "MAIZE_ADVICE": "Continuar riego regular para mantener humedad del suelo.",
+      "TOMATO_FIELD": "Campo de Tomate:",
+      "TOMATO_ADVICE": "Nutrientes del suelo bajos – considerar fertilización."
+    }
   }
 }

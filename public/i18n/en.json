@@ -20,6 +20,44 @@
   "COMMON": {
     "WELCOME": "Welcome",
     "LOGOUT": "Logout",
-    "PROFILE": "Profile"
+    "PROFILE": "Profile",
+    "DAYS": "Days",
+    "TODAY": "Today",
+    "TOMORROW": "Tomorrow",
+    "VIEW_ALL": "View All"
+  },
+  "DASHBOARD": {
+    "WELCOME_BACK": "Welcome back!",
+    "MY_CROPS": "My crops",
+    "UPCOMING_HARVEST_DATE": "Upcoming harvest date",
+    "UPCOMING_TASKS": "Upcoming tasks",
+    "LATEST_RECOMMENDATIONS": "Latest Recommendations",
+    "IN_DAYS": "In {{count}} days",
+    "CROPS": {
+      "TOMATO": "Tomato",
+      "LETTUCE": "Lettuce",
+      "CARROT": "Carrot",
+      "WHEAT": "Wheat",
+      "CACAO": "Cacao",
+      "COFFEE": "Coffee"
+    },
+    "LOCATIONS": {
+      "PARCELA_SAN_JOSE": "Parcela San José",
+      "FUNDO_LOS_PINOS": "Fundo Los Pinos",
+      "FUNDO_SANTA_ROSA": "Fundo Santa Rosa"
+    },
+    "TASKS": {
+      "WATER_MAIZE": "Water Maize",
+      "FERTILIZE_POTATOES": "Fertilize Potatoes",
+      "PEST_INSPECTION_TOMATO": "Pest inspection for Tomato"
+    },
+    "RECOMMENDATIONS": {
+      "POTATO_FIELD": "Potato Field:",
+      "POTATO_ADVICE": "Needs more sunlight exposure – adjust shading nets.",
+      "MAIZE_FIELD": "Maize Field:",
+      "MAIZE_ADVICE": "Continue regular watering to maintain soil moisture.",
+      "TOMATO_FIELD": "Tomato Field:",
+      "TOMATO_ADVICE": "Soil nutrients low – consider fertilization."
+    }
   }
 }

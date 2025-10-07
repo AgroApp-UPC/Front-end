@@ -57,7 +57,13 @@
     "TASKS": {
       "TITLE": "Mis Tareas",
       "DESCRIPTION": "Organiza tus tareas aqui",
-      "BUTTON": "Tarea"
+      "BUTTON": "Tarea",
+      "TABLE": {
+        "TASK": "Tarea",
+        "DUE_DATE": "Fecha Limite",
+        "FIELD": "Campo",
+        "ACTIONS": "Acciones"
+      }
     },
     "RECOMMENDATIONS": {
       "POTATO_FIELD": "Campo de Papas:",
@@ -67,5 +73,9 @@
       "TOMATO_FIELD": "Campo de Tomate:",
       "TOMATO_ADVICE": "Nutrientes del suelo bajos – considerar fertilización."
     }
+  },
+  "COMMUNITY": {
+    "TITLE": "Comunidad",
+    "DESCRIPTION": "Conecta con la comunidad mediante recomendaciones para tus cultivos"
   }
 }

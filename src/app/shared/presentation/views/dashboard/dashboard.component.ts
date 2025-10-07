@@ -67,6 +67,8 @@ export class DashboardComponent implements OnInit {
   loadData() {
    
     this.http.get<PreviewField[]>('http://localhost:3001/preview_fields').subscribe(data => {
+      console.log('Datos de crops:', data); // Agrega esta línea
+    this.crops = data.map(...);
       this.crops = data.map(field => ({
         id: field.id,
         nameKey: field.title.toUpperCase().replace(/ /g, '_'), 

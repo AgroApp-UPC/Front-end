@@ -52,10 +52,10 @@ interface Recommendation {
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  crops: any[] = []; // Se llenará del JSON
-  harvestDate: any = { dayName: 'Tuesday', dayNumber: 16, harvests: [] }; // Se llenará del JSON
-  tasks: any[] = []; // Se llenará del JSON
-  recommendations: any[] = []; // Se llenará del JSON
+  crops: any[] = []; 
+  harvestDate: any = { dayName: 'Tuesday', dayNumber: 16, harvests: [] }; 
+  tasks: any[] = []; 
+  recommendations: any[] = []; 
 
   constructor(private http: HttpClient) {}
 
@@ -68,8 +68,8 @@ export class DashboardComponent implements OnInit {
     this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
       this.crops = data.map(field => ({
         id: field.id,
-        nameKey: field.title.toUpperCase().replace(/ /g, '_'), // e.g., "Campo de Granos, Los Grandes" → "CAMPO_DE_GRANOS,_LOS_GRANDES"
-        days: 31, // Temporal; usa crop_fields.days si ensamblas
+        nameKey: field.title.toUpperCase().replace(/ /g, '_'), 
+        days: 31, 
         image: field.image_url
       }));
     });
@@ -77,29 +77,29 @@ export class DashboardComponent implements OnInit {
     // HarvestDate: de fields (toma primeros 2 para harvests)
     this.http.get<Field[]>('http://localhost:3000/fields').subscribe(data => {
       this.harvestDate = {
-        dayName: 'Tuesday', // Hoy 07/10/2025 es martes
+        dayName: 'Tuesday',
         dayNumber: 16,
-        harvests: data.slice(0, 2).map(field => ({ // Primeros 2 como en tu hardcode
+        harvests: data.slice(0, 2).map(field => ({ 
           id: field.id,
-          when: field.planting_date, // e.g., '05/09'
+          when: field.planting_date, 
           locationKey: field.name,
           cropKey: field.crop
         }))
       };
     });
 
-    // Tasks: de upcoming_tasks (3 items del JSON, hoy 07/10/2025)
+    // Tasks: de upcoming_tasks 
     this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
       this.tasks = data.map(task => ({
         id: task.id,
-        when: task.date === '07/10/2025' ? 'Today' : task.date, // Lógica para 'Today'
+        when: task.date === '07/10/2025' ? 'Today' : task.date, 
         locationKey: task.name,
-        nameKey: task.task.toUpperCase().replace(/ /g, '_'), // e.g., "Urgent: Apply fungicide" → "URGENT:_APPLY_FUNGICIDE"
-        completed: false // Init; cambia con toggle
+        nameKey: task.task.toUpperCase().replace(/ /g, '_'), 
+        completed: false 
       }));
     });
 
-    // Recommendations: directo de recommendations (3 items del JSON)
+   
     this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
       this.recommendations = data.map(rec => ({
         id: rec.id,
@@ -111,7 +111,6 @@ export class DashboardComponent implements OnInit {
 
   toggleTask(task: any) {
     task.completed = !task.completed;
-    // Opcional: Para persistir en JSON, agrega PATCH
-    // this.http.patch(`http://localhost:3000/upcoming_tasks/${task.id}`, { completed: task.completed }).subscribe();
+
   }
 }

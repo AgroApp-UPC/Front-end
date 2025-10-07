@@ -1,0 +1,41 @@
+<div class="page-container">
+  <div class="tasks-header">
+    <h1 class="task-title">{{'DASHBOARD.TASKS.TITLE' | translate}}</h1>
+    <p>{{'DASHBOARD.TASKS.DESCRIPTION' | translate}}</p>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Field</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let task of tasks$ | async">
+        <td>{{ task.description }}</td>
+        <td>{{ task.due_date }}</td>
+        <td>{{ task.field }}</td>
+        <td class="actions-cell">
+          <button mat-icon-button aria-label="Edit task">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Delete task">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="new-task-container">
+    <button mat-flat-button class="new-task-button">
+      <mat-icon>add</mat-icon>
+      <span>{{'DASHBOARD.TASKS.BUTTON' | translate}}</span>
+    </button>
+  </div>
+</div>

@@ -55,9 +55,9 @@
       "FUNDO_SANTA_ROSA": "Fundo Santa Rosa"
     },
     "TASKS": {
-      "WATER_MAIZE": "Water Maize",
-      "FERTILIZE_POTATOES": "Fertilize Potatoes",
-      "PEST_INSPECTION_TOMATO": "Pest inspection for Tomato"
+      "TITLE": "My Tasks",
+      "DESCRIPTION": "Manage your fields here",
+      "BUTTON": "New task"
     },
     "RECOMMENDATIONS": {
       "POTATO_FIELD": "Potato Field:",

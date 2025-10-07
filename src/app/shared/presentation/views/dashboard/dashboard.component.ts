@@ -65,7 +65,7 @@ export class DashboardComponent implements OnInit {
 
   loadData() {
     // Crops: de preview_fields (5 items del JSON)
-    this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
+    this.http.get<PreviewField[]>('  http://localhost:3001/preview_fields').subscribe(data => {
       this.crops = data.map(field => ({
         id: field.id,
         nameKey: field.title.toUpperCase().replace(/ /g, '_'), 
@@ -75,7 +75,7 @@ export class DashboardComponent implements OnInit {
     });
 
     // HarvestDate: de fields (toma primeros 2 para harvests)
-    this.http.get<Field[]>('http://localhost:3000/fields').subscribe(data => {
+    this.http.get<Field[]>('http://localhost:3001/fields').subscribe(data => {
       this.harvestDate = {
         dayName: 'Tuesday',
         dayNumber: 16,
@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit {
     });
 
     // Tasks: de upcoming_tasks 
-    this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
+    this.http.get<UpcomingTask[]>('http://localhost:3001/upcoming_tasks').subscribe(data => {
       this.tasks = data.map(task => ({
         id: task.id,
         when: task.date === '07/10/2025' ? 'Today' : task.date, 
@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
     });
 
    
-    this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
+    this.http.get<Recommendation[]>('http://localhost:3001/recommendations').subscribe(data => {
       this.recommendations = data.map(rec => ({
         id: rec.id,
         fieldKey: rec.title,

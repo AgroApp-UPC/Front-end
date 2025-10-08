@@ -42,12 +42,23 @@
     "LATEST_RECOMMENDATIONS": "Latest Recommendations",
     "IN_DAYS": "In {{count}} days",
     "CROPS": {
+      "TITLE": "My Crop Fields",
+      "DESCRIPTION": "Manage your crop fields here",
+      "BUTTON": "New Crop",
       "TOMATO": "Tomato",
       "LETTUCE": "Lettuce",
       "CARROT": "Carrot",
       "WHEAT": "Wheat",
       "CACAO": "Cacao",
-      "COFFEE": "Coffee"
+      "COFFEE": "Coffee",
+      "TABLE": {
+        "CROP": "Crop",
+        "PLANTING_DATE": "Planting Date",
+        "HARVEST_DATE": "Harvest Date",
+        "FIELD": "Field",
+        "STATUS": "Status",
+        "ACTIONS": "Actions"
+      }
     },
     "LOCATIONS": {
       "PARCELA_SAN_JOSE": "Parcela San José",

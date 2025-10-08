@@ -42,12 +42,23 @@
     "LATEST_RECOMMENDATIONS": "Últimas Recomendaciones",
     "IN_DAYS": "En {{count}} días",
     "CROPS": {
+      "TITLE": "Mis Cultivos",
+      "DESCRIPTION": "Maneja tus cultivos aquí",
+      "BUTTON": "Nuevo Cultivo",
       "TOMATO": "Tomate",
       "LETTUCE": "Lechuga",
       "CARROT": "Zanahoria",
       "WHEAT": "Trigo",
       "CACAO": "Cacao",
-      "COFFEE": "Café"
+      "COFFEE": "Café",
+      "TABLE": {
+        "CROP": "Cultivo",
+        "PLANTING_DATE": "Fecha de siembra",
+        "HARVEST_DATE": "Fecha de cosecha",
+        "FIELD": "Parcela",
+        "STATUS": "Estado",
+        "ACTIONS": "Acciones"
+      }
     },
     "LOCATIONS": {
       "PARCELA_SAN_JOSE": "Parcela San José",

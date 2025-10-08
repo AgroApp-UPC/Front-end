@@ -8,6 +8,7 @@ import { CommunityComponent } from './shared/presentation/views/community/commun
 import { LoginComponent } from './shared/presentation/views/login/login.component';
 import { authGuard } from './shared/infrastructure/guards/auth.guard';
 import { loginGuard } from './shared/infrastructure/guards/login.guard';
+import {CropFormComponent} from './shared/presentation/views/my-crops/my-crops-form/my-crops-form.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
@@ -19,6 +20,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'my-crops', component: MyCropsComponent },
+      { path: 'my-crops/add', component: CropFormComponent },
       { path: 'my-fields', component: MyFieldsComponent },
       { path: 'my-tasks', component: MyTasksComponent },
       { path: 'community', component: CommunityComponent }

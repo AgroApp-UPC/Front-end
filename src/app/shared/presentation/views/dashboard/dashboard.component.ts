@@ -105,6 +105,7 @@ export class DashboardComponent implements OnInit {
     });
 
     this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
+      console.log('Recommendations del JSON:', data);
       this.recommendations = data.map(rec => ({
         id: rec.id,
         fieldKey: rec.title, 

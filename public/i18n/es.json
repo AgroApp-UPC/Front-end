@@ -55,9 +55,15 @@
       "FUNDO_SANTA_ROSA": "Fundo Santa Rosa"
     },
     "TASKS": {
-      "WATER_MAIZE": "Regar Maíz",
-      "FERTILIZE_POTATOES": "Fertilizar Papas",
-      "PEST_INSPECTION_TOMATO": "Inspección de plagas para Tomate"
+      "TITLE": "Mis Tareas",
+      "DESCRIPTION": "Organiza tus tareas aqui",
+      "BUTTON": "Tarea",
+      "TABLE": {
+        "TASK": "Tarea",
+        "DUE_DATE": "Fecha Limite",
+        "FIELD": "Campo",
+        "ACTIONS": "Acciones"
+      }
     },
     "RECOMMENDATIONS": {
       "POTATO_FIELD": "Campo de Papas:",
@@ -67,5 +73,9 @@
       "TOMATO_FIELD": "Campo de Tomate:",
       "TOMATO_ADVICE": "Nutrientes del suelo bajos – considerar fertilización."
     }
+  },
+  "COMMUNITY": {
+    "TITLE": "Comunidad",
+    "DESCRIPTION": "Conecta con la comunidad mediante recomendaciones para tus cultivos"
   }
 }

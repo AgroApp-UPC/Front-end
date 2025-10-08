@@ -55,9 +55,15 @@
       "FUNDO_SANTA_ROSA": "Fundo Santa Rosa"
     },
     "TASKS": {
-      "WATER_MAIZE": "Water Maize",
-      "FERTILIZE_POTATOES": "Fertilize Potatoes",
-      "PEST_INSPECTION_TOMATO": "Pest inspection for Tomato"
+      "TITLE": "My Tasks",
+      "DESCRIPTION": "Manage your fields here",
+      "BUTTON": "New task",
+      "TABLE": {
+        "TASK": "Task",
+        "DUE_DATE": "Due date",
+        "FIELD": "Field",
+        "ACTIONS": "Actions"
+      }
     },
     "RECOMMENDATIONS": {
       "POTATO_FIELD": "Potato Field:",
@@ -67,5 +73,9 @@
       "TOMATO_FIELD": "Tomato Field:",
       "TOMATO_ADVICE": "Soil nutrients low – consider fertilization."
     }
+  },
+  "COMMUNITY": {
+    "TITLE": "Community",
+    "DESCRIPTION": "Connect with the community by recommendations for your fields"
   }
 }

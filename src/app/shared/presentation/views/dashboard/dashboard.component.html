@@ -16,8 +16,8 @@
         <mat-card class="crop-card">
           <div class="crop-image" [style.background-image]="'url(' + crop.image + ')'"></div>
           <mat-card-content class="crop-content">
-            <h3 class="crop-name">{{ 'DASHBOARD.CROPS.' + crop.nameKey | translate }}</h3>
-            <p class="crop-days">{{ crop.days }} {{ 'COMMON.DAYS' | translate }}</p>
+           <h3 class="crop-name">{{ crop.name }}</h3> 
+           <p class="crop-days">{{ crop.days }} {{ 'COMMON.DAYS' | translate }}</p>
           </mat-card-content>
         </mat-card>
       }
@@ -40,9 +40,9 @@
           <div class="harvest-list">
             @for (harvest of harvestDate.harvests; track harvest.id) {
               <div class="harvest-item" [class.tomorrow]="harvest.when === 'tomorrow'">
-                <div class="harvest-when">{{ harvest.when }}</div>
-                <div class="harvest-location">{{ 'DASHBOARD.LOCATIONS.' + harvest.locationKey | translate }}</div>
-                <div class="harvest-crop">{{ 'DASHBOARD.CROPS.' + harvest.cropKey | translate }}</div>
+               <div class="harvest-when">{{ harvest.when }}</div>
+               <div class="harvest-location">{{ harvest.location }}</div> 
+               <div class="harvest-crop">{{ harvest.crop }}</div> 
               </div>
             }
           </div>
@@ -61,9 +61,9 @@
             <div class="task-item">
               <mat-checkbox [(ngModel)]="task.completed" color="primary"></mat-checkbox>
               <div class="task-details">
-                <div class="task-when">{{ task.when }}</div>
-                <div class="task-location">{{ 'DASHBOARD.LOCATIONS.' + task.locationKey | translate }}</div>
-                <div class="task-name">{{ 'DASHBOARD.TASKS.' + task.nameKey | translate }}</div>
+               <div class="task-when">{{ task.when }}</div>
+               <div class="task-location">{{ task.location }}</div> 
+               <div class="task-name">{{ task.name }}</div> 
               </div>
               <button mat-icon-button class="task-close">
                 <mat-icon>close</mat-icon>
@@ -80,9 +80,9 @@
     <h2>{{ 'DASHBOARD.LATEST_RECOMMENDATIONS' | translate }}</h2>
     <ul class="recommendations-list">
       @for (rec of recommendations; track rec.id) {
-        <li>
-          <strong>{{ 'DASHBOARD.RECOMMENDATIONS.' + rec.fieldKey | translate }}</strong>
-          {{ 'DASHBOARD.RECOMMENDATIONS.' + rec.adviceKey | translate }}
+       <li>
+       <strong>{{ rec.field }}</strong> 
+           {{ rec.advice }} 
         </li>
       }
     </ul>

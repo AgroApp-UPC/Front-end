@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
   loadData() {
    
     this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
-      console.log('Datos de crops:', data); // Agrega esta línea
+      console.log('Crops del JSON:', data);
     this.crops = data.map(...);
       this.crops = data.map(field => ({
         id: field.id,
@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
 
   
     this.http.get<Field[]>('http://localhost:3000/fields').subscribe(data => {
+      console.log('Fields del JSON:', data);
       this.harvestDate = {
         dayName: 'Tuesday',
         dayNumber: 16,
@@ -93,6 +94,7 @@ export class DashboardComponent implements OnInit {
 
   
     this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
+      console.log('Tasks del JSON:', data);
       this.tasks = data.map(task => ({
         id: task.id,
         when: task.date === '07/10/2025' ? 'Today' : task.date,

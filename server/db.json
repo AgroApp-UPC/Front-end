@@ -88,6 +88,24 @@
       "harvest_date": "15/12",
       "field": "Campo de Zanahorias Beta",
       "status": "Healthy"
+    },
+    {
+      "title": "Camote",
+      "days": "",
+      "planting_date": "10/10",
+      "harvest_date": "11/12",
+      "field": "Papas del Sol",
+      "status": "Healthy",
+      "id": 6
+    },
+    {
+      "title": "Albahaca",
+      "days": "",
+      "planting_date": "08/10",
+      "harvest_date": "02/12",
+      "field": "Parcela de Maíz La Serrana",
+      "status": "Healthy",
+      "id": 7
     }
   ],
   "fields": [
@@ -343,6 +361,12 @@
       "description": "Thin seedlings to allow proper growth.",
       "due_date": "15/10",
       "field": "Campo de Zanahorias Beta"
+    },
+    {
+      "description": "Water tomato",
+      "due_date": "24/10",
+      "field": "Campo de Granos, Los Grandes",
+      "id": 8
     }
   ],
   "community_recommendation": [

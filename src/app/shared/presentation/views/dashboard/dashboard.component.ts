@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Agrega OnInit aquí
 import { HttpClient } from '@angular/common/http';
 import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
@@ -52,7 +52,7 @@ interface Recommendation {
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit { 
   crops: any[] = [];
   harvestDate: any = { dayName: 'Tuesday', dayNumber: 16, harvests: [] };
   tasks: any[] = [];
@@ -65,36 +65,35 @@ export class DashboardComponent implements OnInit {
   }
 
   loadData() {
-   
+
     this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
-      console.log('Crops del JSON:', data);
+      console.log('Crops del JSON:', data); 
       this.crops = data.map(field => ({
-        id: field.id,
-        nameKey: field.title.toUpperCase().replace(/ /g, '_'), 
+        nameKey: field.title.toUpperCase().replace(/ /g, '_'),
         days: 31, 
         image: field.image_url
       }));
     });
 
-  
+    
     this.http.get<Field[]>('http://localhost:3000/fields').subscribe(data => {
-      console.log('Fields del JSON:', data);
+      console.log('Fields del JSON:', data); 
       this.harvestDate = {
         dayName: 'Tuesday',
         dayNumber: 16,
-        harvests: data.slice(0, 2).map(field => ({
+        harvests: data.slice(0, 2).map(field => ({ 
           id: field.id,
-          when: field.planting_date, 
-          locationKey: field.name, 
-          cropKey: field.crop 
+          when: field.planting_date,
+          locationKey: field.name,
+          cropKey: field.crop
         }))
       };
     });
 
-  
+
     this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
-      console.log('Tasks del JSON:', data);
-      this.tasks = data.map(task => ({
+      console.log('Tasks del JSON:', data); 
+      this.tasks = data.map(task => ({ 
         id: task.id,
         when: task.date === '07/10/2025' ? 'Today' : task.date,
         locationKey: task.name,
@@ -103,12 +102,13 @@ export class DashboardComponent implements OnInit {
       }));
     });
 
+
     this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
-      console.log('Recommendations del JSON:', data);
-      this.recommendations = data.map(rec => ({
+      console.log('Recommendations del JSON:', data); 
+      this.recommendations = data.map(rec => ({ 
         id: rec.id,
-        fieldKey: rec.title, 
-        adviceKey: rec.content 
+        fieldKey: rec.title,
+        adviceKey: rec.content
       }));
     });
   }

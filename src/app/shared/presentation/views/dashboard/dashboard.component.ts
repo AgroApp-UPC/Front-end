@@ -64,15 +64,15 @@ export class DashboardComponent implements OnInit {
     this.loadData();
   }
 
- loadData() {
-
+loadData() {
+ 
   this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
     console.log('Crops del JSON:', data);
     this.crops = data.map(field => ({
       id: field.id,
       name: field.title, 
       nameKey: field.title.toUpperCase().replace(/ /g, '_'), 
-      days: 31, 
+      days: 31,
       image: field.image_url
     }));
   });
@@ -94,13 +94,13 @@ export class DashboardComponent implements OnInit {
     };
   });
 
-  
+
   this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
     console.log('Tasks del JSON:', data);
     this.tasks = data.map(task => ({
       id: task.id,
       when: task.date === '07/10/2025' ? 'Today' : task.date,
-      location: task.name, // Directo
+      location: task.name, 
       locationKey: task.name.toUpperCase().replace(/ /g, '_'), 
       name: task.task, 
       nameKey: task.task.toUpperCase().replace(/ /g, '_'), 
@@ -108,13 +108,13 @@ export class DashboardComponent implements OnInit {
     }));
   });
 
-
+ 
   this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
     console.log('Recommendations del JSON:', data);
     this.recommendations = data.map(rec => ({
       id: rec.id,
       field: rec.title, 
-      fieldKey: rec.title.toUpperCase().replace(/ /g, '_'), 
+      fieldKey: rec.title.toUpperCase().replace(/ /g, '_'),
       advice: rec.content, 
       adviceKey: rec.content.toUpperCase().replace(/ /g, '_'), 
     }));

@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import {forkJoin, of, Subscription, switchMap} from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {NavigationEnd, Router, RouterLink} from '@angular/router';
-import { enviroment } from '../../../../../enviroment/enviroment.development';
+import { enviroment } from '../../../../../enviroment/enviroment';
 
 interface PreviewField {
   id: number;

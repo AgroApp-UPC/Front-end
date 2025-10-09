@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Task } from '../domain/model/task.entity';
 import { TaskAssembler } from '../domain/model/task.assembler';
-import {enviroment} from '../../../../enviroment/enviroment.development';
+import {enviroment} from '../../../../enviroment/enviroment';
 
 
 @Injectable({

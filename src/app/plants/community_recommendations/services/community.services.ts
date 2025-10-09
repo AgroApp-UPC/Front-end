@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Community } from '../domain/model/community.entity';
 import { CommunityAssembler } from '../domain/model/community.assembler';
-import {enviroment} from '../../../../enviroment/enviroment.development';
+import {enviroment} from '../../../../enviroment/enviroment';
 
 
 @Injectable({

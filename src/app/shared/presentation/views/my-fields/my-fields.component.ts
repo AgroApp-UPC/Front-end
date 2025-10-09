@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import { enviroment } from '../../../../../enviroment/enviroment';
+
 
 
 interface PreviewField {

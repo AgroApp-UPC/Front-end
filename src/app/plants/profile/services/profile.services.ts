@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { enviroment } from '../../../../enviroment/enviroment.development';
+import { enviroment } from '../../../../enviroment/enviroment';
 import {User} from '../domain/model/profile.entity';
 import {UserAssembler} from '../domain/model/profile.assembler';
 

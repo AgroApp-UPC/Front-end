@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Crop } from '../domain/model/crop.entity';
 import { CropAssembler } from '../domain/model/crop.assembler';
-import {enviroment} from '../../../../enviroment/enviroment.development';
+import {enviroment} from '../../../../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'

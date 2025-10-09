@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { switchMap } from 'rxjs';
-import {enviroment} from '../../../../../enviroment/enviroment.development';
+import {enviroment} from '../../../../../enviroment/enviroment';
 import {UserService} from '../../../../plants/profile/services/profile.services';
 
 

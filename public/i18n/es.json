@@ -88,5 +88,77 @@
   "COMMUNITY": {
     "TITLE": "Comunidad",
     "DESCRIPTION": "Conecta con la comunidad mediante recomendaciones para tus cultivos"
+  },
+  "FIELDS": {
+    "title": "Mis campos",
+    "description":"Administras tus campos aqui"
+  },
+  "field_detail": {
+    "location": "Localización: ",
+    "field_size": "Tamaño del campo: ",
+    "crop": "Cultivo: ",
+    "days_since": "Dias desde el plantado: ",
+    "planting_date": "Fecha de plantado: ",
+    "expected": "Fecha esperada de cosecha: ",
+    "soil_type": "Tipo de suelo: ",
+    "watering": "Regado: ",
+    "sunlight": "Luz del sol: ",
+    "progress": {
+      "title": "Progreso e Historia",
+      "watered": "Regado el: ",
+      "fertilized": "Fertilziado el: ",
+      "pest": "Inspecion de pestes el:"
+    },
+    "tasks": "Mis Tareas"
+  },
+  "DAYS": {
+    "SUNDAY": "Domingo",
+    "MONDAY": "Lunes",
+    "TUESDAY": "Martes",
+    "WEDNESDAY": "Miércoles",
+    "THURSDAY": "Jueves",
+    "FRIDAY": "Viernes",
+    "SATURDAY": "Sábado"
+  },
+  "BUTTONS": {
+    "VIEW_ALL": "Ver todo",
+    "SAVE": "Guardar"
+  },
+  "PROFILE": {
+    "title": "Mi Perfil",
+    "PERSONAL_INFO": {
+      "TITLE": "Información personal",
+      "NAME_PLACEHOLDER": "Nombre",
+      "EMAIL_PLACEHOLDER": "Correo electrónico",
+      "PHONE_PLACEHOLDER": "Número de teléfono",
+      "ID_PLACEHOLDER": "Documento de identidad",
+      "NOTIFICATIONS": "Notificaciones",
+      "LOCATION": "Ubicación"
+    },
+    "PASSWORD": {
+      "TITLE": "Cambiar contraseña",
+      "CURRENT_PLACEHOLDER": "Contraseña actual",
+      "NEW_PLACEHOLDER": "Nueva contraseña",
+      "CONFIRM_PLACEHOLDER": "Confirmar nueva contraseña",
+      "SAVE_BUTTON": "Guardar cambios"
+    },
+    "FOOTER": {
+      "LOGOUT": "Cerrar sesión",
+      "DELETE_ACCOUNT": "Eliminar cuenta"
+    }
+  },
+  "NEW_FIELD": {
+    "BUTTONS": {
+      "VIEW_ALL": "Ver todo",
+      "SAVE": "Guardar",
+      "CANCEL": "Cancelar"
+    },
+    "ADD_FIELD": {
+      "TITLE": "Añadir nuevo campo de cultivo",
+      "UPLOAD_IMAGE": "Subir Imagen",
+      "FIELD_NAME_PLACEHOLDER": "Nombre del campo",
+      "LOCATION_PLACEHOLDER": "Ubicación",
+      "FIELD_SIZE_PLACEHOLDER": "Tamaño del campo"
+    }
   }
 }

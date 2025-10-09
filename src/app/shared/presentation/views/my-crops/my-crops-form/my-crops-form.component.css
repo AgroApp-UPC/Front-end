@@ -29,12 +29,12 @@
   gap: 12px;
 }
 
-/* Colocación responsiva de los campos */
-mat-form-field:nth-child(1) { grid-column: span 3; } /* Title */
-mat-form-field:nth-child(2) { grid-column: span 3; } /* Planting */
-mat-form-field:nth-child(3) { grid-column: span 3; } /* Harvest */
-mat-form-field:nth-child(4) { grid-column: span 4; } /* Field */
-mat-form-field:nth-child(5) { grid-column: span 4; } /* Status */
+
+mat-form-field:nth-child(1) { grid-column: span 3; }
+mat-form-field:nth-child(2) { grid-column: span 3; }
+mat-form-field:nth-child(3) { grid-column: span 3; }
+mat-form-field:nth-child(4) { grid-column: span 4; }
+mat-form-field:nth-child(5) { grid-column: span 4; }
 
 @media (max-width: 1024px) {
   .form-grid { grid-template-columns: repeat(6, 1fr); }
@@ -64,7 +64,6 @@ mat-form-field:nth-child(5) { grid-column: span 4; } /* Status */
   border-radius: 10px;
 }
 
-/* Chips de estado */
 .chip {
   display: inline-flex;
   align-items: center;

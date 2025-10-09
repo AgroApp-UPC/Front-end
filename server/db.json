@@ -424,11 +424,11 @@
   "user": [
     {
       "id": 1,
-      "user_name": "Alberto Reyes",
-      "email": "albertreyes05@gmail.com",
-      "phone_number": "999999999",
-      "identificator": "72669087",
-      "password": "contraseña123"
+      "user_name": "",
+      "email": "",
+      "phone_number": "",
+      "identificator": "",
+      "password": ""
     }
   ]
 }

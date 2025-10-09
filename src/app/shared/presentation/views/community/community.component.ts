@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
 import {Community} from '../../../../plants/community_recommendations/domain/model/community.entity';
-import {CommunityService} from '../../../../plants/community_recommendations/services/community.services'; // Asegúrate que la ruta sea correcta
+import {CommunityService} from '../../../../plants/community_recommendations/services/community.services';
 
 @Component({
   selector: 'app-community',

@@ -5,6 +5,11 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { switchMap } from 'rxjs';
+import {enviroment} from '../../../../../enviroment/enviroment.development';
+import {UserService} from '../../../../plants/profile/services/profile.services';
+
 
 @Component({
   selector: 'app-login',
@@ -21,18 +26,34 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class LoginComponent {
   private router = inject(Router);
-  private platformId = inject(PLATFORM_ID);
+  private userService = inject(UserService);
 
   username = '';
   password = '';
 
   onSignIn() {
-    if (isPlatformBrowser(this.platformId)) {
-      // Set isLoggedIn to true in localStorage
-      localStorage.setItem('isLoggedIn', 'true');
-
-      // Navigate to dashboard
-      this.router.navigate(['/dashboard']);
+    if (!this.username || !this.password) {
+      alert('Username and password are required.');
+      return;
     }
+
+    this.userService.getUserById(1).pipe(
+      switchMap(currentUser => {
+        const generatedEmail = `${this.username.toLowerCase().replace(/\s/g, '')}@gmail.com`;
+        const updatedUser = {
+          ...currentUser,
+          user_name: this.username,
+          password: this.password,
+          email: generatedEmail
+        };
+        return this.userService.updateUser(updatedUser);
+      })
+    ).subscribe({
+      next: () => {
+        localStorage.setItem('isLoggedIn', 'true');
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => console.error('Error updating user data:', err)
+    });
   }
 }

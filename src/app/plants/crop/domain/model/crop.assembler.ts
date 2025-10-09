@@ -1,6 +1,4 @@
-// src/app/plants/domain/model/task.assembler.ts
-
-import { Crop } from './crop.entity'; // Asegúrate que el import sea correcto
+import { Crop } from './crop.entity';
 
 export class CropAssembler {
 
@@ -22,8 +20,7 @@ export class CropAssembler {
    * CORREGIDO: Convierte un array de recursos directamente a un array de Tasks.
    * Ya no espera un objeto contenedor.
    */
-  public static toEntitiesFromResponse(response: any[]): Crop[] { // Recibe un array directamente
-    // Mapea el array 'response' directamente
+  public static toEntitiesFromResponse(response: any[]): Crop[] {
     return response.map(resource => this.toEntityFromResource(resource));
   }
 }

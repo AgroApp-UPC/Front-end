@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-// Importaciones de Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +8,7 @@ import {Task} from '../../../../../plants/task/domain/model/task.entity';
 
 @Component({
   selector: 'app-task-form',
-  standalone: true,  // <--- ¡ESTA ES LA LÍNEA MÁS IMPORTANTE!
+  standalone: true,
   imports: [
     CommonModule,
     FormsModule,
@@ -22,7 +20,7 @@ import {Task} from '../../../../../plants/task/domain/model/task.entity';
   styleUrls: ['./my-tasks-form.component.css']
 })
 export class TaskFormComponent {
-  // El resto del código del componente no cambia...
+
   @Output() taskCreated = new EventEmitter<Omit<Task, 'id'>>();
   @Output() cancel = new EventEmitter<void>();
 

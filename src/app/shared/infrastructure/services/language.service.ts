@@ -17,21 +17,17 @@ export class LanguageService {
   ];
 
   constructor() {
-    // Only run in browser
     if (this.isBrowser) {
-      // Check localStorage first
       const savedLang = localStorage.getItem('language');
 
       if (savedLang && this.availableLanguages.some(lang => lang.code === savedLang)) {
         this.setLanguage(savedLang);
       } else {
-        // Get browser language or default to 'en'
         const browserLang = this.translateService.getBrowserLang();
         const defaultLang = browserLang?.match(/en|es/) ? browserLang : 'en';
         this.setLanguage(defaultLang);
       }
     } else {
-      // Set default language for SSR
       this.translateService.use('en');
     }
   }
@@ -40,7 +36,6 @@ export class LanguageService {
     this.translateService.use(lang);
     this.currentLanguage.set(lang);
 
-    // Only use localStorage in browser
     if (this.isBrowser) {
       localStorage.setItem('language', lang);
     }

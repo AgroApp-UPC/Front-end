@@ -1,4 +1,4 @@
-import { Task } from './task.entity'; // Asegúrate que el import sea correcto
+import { Task } from './task.entity';
 
 export class TaskAssembler {
 
@@ -18,8 +18,8 @@ export class TaskAssembler {
    * CORREGIDO: Convierte un array de recursos directamente a un array de Tasks.
    * Ya no espera un objeto contenedor.
    */
-  public static toEntitiesFromResponse(response: any[]): Task[] { // Recibe un array directamente
-    // Mapea el array 'response' directamente
+  public static toEntitiesFromResponse(response: any[]): Task[] {
+
     return response.map(resource => this.toEntityFromResource(resource));
   }
 }

@@ -8,39 +8,40 @@
   </div>
 
   <div class="form-grid">
-  <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="newCrop.title" name="title" required placeholder="e.g., Tomato">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Planting Date</mat-label>
-    <input matInput [(ngModel)]="newCrop.planting_date" name="planting_date" required placeholder="e.g., 25/12">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Harvest Date</mat-label>
-    <input matInput [(ngModel)]="newCrop.harvest_date" name="harvest_date" required placeholder="e.g., 25/12">
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Field</mat-label>
-    <mat-select [(ngModel)]="newCrop.field" name="field" required>
-        <mat-option *ngFor="let field of fields$ | async" [value]="field.name">{{field.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="newCrop.title" name="title" required placeholder="e.g., Tomato">
+    </mat-form-field>
 
     <mat-form-field appearance="outline">
-    <mat-label>Status</mat-label>
-    <mat-select [(ngModel)]="newCrop.status" name="status" required>
-      <mat-select-trigger>
-        <span class="chip" [ngClass]="newCrop.status | lowercase">{{ newCrop.status || '—' }}</span>
-      </mat-select-trigger>
-      <mat-option *ngFor="let s of statuses" [value]="s">
-        <span class="chip" [ngClass]="s | lowercase">{{ s }}</span>
-      </mat-option>
-    </mat-select>
+      <mat-label>Planting Date</mat-label>
+      <input matInput type="date" [(ngModel)]="newCrop.planting_date" name="planting_date" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Harvest Date</mat-label>
+      <input matInput type="date" [(ngModel)]="newCrop.harvest_date" name="harvest_date" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Field</mat-label>
+      <mat-select [(ngModel)]="selectedFieldId" name="selectedFieldId" required>
+        <mat-option *ngFor="let field of fields$ | async" [value]="field.id">
+          {{field.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="newCrop.status" name="status" required>
+        <mat-select-trigger>
+          <span class="chip" [ngClass]="newCrop.status | lowercase">{{ newCrop.status || '—' }}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let s of statuses" [value]="s">
+          <span class="chip" [ngClass]="s | lowercase">{{ s }}</span>
+        </mat-option>
+      </mat-select>
     </mat-form-field>
   </div>
 
@@ -54,5 +55,4 @@
       Save
     </button>
   </div>
-
 </mat-card>

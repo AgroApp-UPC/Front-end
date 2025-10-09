@@ -8,10 +8,15 @@ import { CommunityComponent } from './shared/presentation/views/community/commun
 import { LoginComponent } from './shared/presentation/views/login/login.component';
 import { authGuard } from './shared/infrastructure/guards/auth.guard';
 import { loginGuard } from './shared/infrastructure/guards/login.guard';
-import {CropFormComponent} from './shared/presentation/views/my-crops/my-crops-form/my-crops-form.component';
+import { CropFormComponent } from './shared/presentation/views/my-crops/my-crops-form/my-crops-form.component';
+import { FieldDetailsComponent } from './shared/presentation/views/my-fields/field-details/field-details.component';
+import { AddFieldComponent } from './shared/presentation/views/my-fields/add-field/add-field.component';
+import { ProfileComponent } from './shared/presentation/views/profile/profile.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
+
   {
     path: '',
     component: MainLayoutComponent,
@@ -22,8 +27,11 @@ export const routes: Routes = [
       { path: 'my-crops', component: MyCropsComponent },
       { path: 'my-crops/add', component: CropFormComponent },
       { path: 'my-fields', component: MyFieldsComponent },
+      { path: 'my-fields/add', component: AddFieldComponent },
+      { path: 'my-fields/:id', component: FieldDetailsComponent },
       { path: 'my-tasks', component: MyTasksComponent },
-      { path: 'community', component: CommunityComponent }
+      { path: 'community', component: CommunityComponent },
+      { path: 'profile', component: ProfileComponent }
     ]
   }
 ];

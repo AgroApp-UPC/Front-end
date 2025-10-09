@@ -26,10 +26,9 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-/* --- ESTILOS MODIFICADOS PARA EL NOMBRE DE USUARIO --- */
 .user-name {
-  font-size: 1.25rem;  /* <-- Aumentado para hacerlo más grande */
-  font-weight: normal; /* <-- Cambiado de 600 a normal para quitar la negrita */
+  font-size: 1.25rem;
+  font-weight: normal;
   color: #000000;
   margin: 0 0 0.5rem 0;
 }

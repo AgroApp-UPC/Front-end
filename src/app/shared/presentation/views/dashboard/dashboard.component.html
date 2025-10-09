@@ -4,7 +4,7 @@
   <section class="crops-section">
     <div class="section-header">
       <h2>{{ 'DASHBOARD.MY_CROPS' | translate }}</h2>
-      <a class="view-all-link">
+      <a class="view-all-link" routerLink="/my-fields">
         {{ 'COMMON.VIEW_ALL' | translate }}
         <mat-icon>arrow_forward</mat-icon>
       </a>
@@ -14,8 +14,7 @@
         <mat-card class="crop-card">
           <div class="crop-image" [style.background-image]="'url(' + crop.image + ')'"></div>
           <mat-card-content class="crop-content">
-            <h3 class="crop-name">{{ crop.name }}</h3> <!-- Directo: "Campo de Granos, Los Grandes" -->
-            <p class="crop-days">{{ crop.days }} {{ 'COMMON.DAYS' | translate }}</p>
+            <h3 class="crop-name">{{ crop.name }}</h3>
           </mat-card-content>
         </mat-card>
       }
@@ -31,7 +30,7 @@
       <mat-card-content>
         <div class="harvest-content">
           <div class="calendar-day">
-            <div class="day-name">{{ harvestDate.dayName }}</div>
+            <div class="day-name">{{ harvestDate.dayName | translate }}</div>
             <div class="day-number">{{ harvestDate.dayNumber }}</div>
           </div>
           <div class="harvest-list">
@@ -58,10 +57,10 @@
               <mat-checkbox [(ngModel)]="task.completed" color="primary"></mat-checkbox>
               <div class="task-details">
                 <div class="task-when">{{ task.when }}</div>
-                <div class="task-location">{{ task.location }}</div> <!-- Directo: "Invernadero de Tomates" -->
-                <div class="task-name">{{ task.name }}</div> <!-- Directo: "Urgent: Apply fungicide..." -->
+                <div class="task-location">{{ task.location }}</div>
+                <div class="task-name">{{ task.name }}</div>
               </div>
-              <button mat-icon-button class="task-close">
+              <button mat-icon-button class="task-close" (click)="deleteTask(task.id, $event)">
                 <mat-icon>close</mat-icon>
               </button>
             </div>
@@ -76,8 +75,8 @@
     <ul class="recommendations-list">
       @for (rec of recommendations; track $index) {
         <li>
-          <strong>{{ rec.field }}</strong> <!-- Directo: "Revisión de Riego" -->
-          {{ rec.advice }} <!-- Directo: "Cosechar antes de 15/11/2025" -->
+          <strong>{{ rec.field }}</strong>
+          {{ rec.advice }}
         </li>
       }
     </ul>

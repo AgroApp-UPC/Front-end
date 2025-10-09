@@ -1,4 +1,4 @@
-import { Field } from './field.entity'; // Asegúrate que el import sea correcto
+import { Field } from './field.entity';
 
 export class FieldAssembler {
 
@@ -19,8 +19,7 @@ export class FieldAssembler {
    * CORREGIDO: Convierte un array de recursos directamente a un array de Tasks.
    * Ya no espera un objeto contenedor.
    */
-  public static toEntitiesFromResponse(response: any[]): Field[] { // Recibe un array directamente
-    // Mapea el array 'response' directamente
+  public static toEntitiesFromResponse(response: any[]): Field[] {
     return response.map(resource => this.toEntityFromResource(resource));
   }
 }

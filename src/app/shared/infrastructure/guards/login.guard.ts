@@ -9,13 +9,11 @@ export const loginGuard = () => {
   if (isPlatformBrowser(platformId)) {
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
-    // If user is already logged in, redirect to dashboard
     if (isLoggedIn) {
       router.navigate(['/dashboard']);
       return false;
     }
   }
 
-  // If not logged in, allow access to login page
   return true;
 };

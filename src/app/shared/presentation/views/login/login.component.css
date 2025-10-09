@@ -89,7 +89,7 @@
   object-fit: cover;
 }
 
-/* Responsive Design */
+
 @media (max-width: 968px) {
   .login-right {
     display: none;

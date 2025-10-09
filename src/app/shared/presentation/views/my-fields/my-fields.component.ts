@@ -47,7 +47,7 @@ export class MyFieldsComponent implements OnInit {
 
   public fields$!: Observable<CombinedField[]>;
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(private http: HttpClient) {}
 

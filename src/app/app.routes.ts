@@ -14,9 +14,6 @@ import { AddFieldComponent } from './shared/presentation/views/my-fields/add-fie
 import { ProfileComponent } from './shared/presentation/views/profile/profile.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [loginGuard] },
-
   {
     path: '',
     component: MainLayoutComponent,

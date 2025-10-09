@@ -424,11 +424,11 @@
   "user": [
     {
       "id": 1,
-      "user_name": "",
-      "email": "",
-      "phone_number": "",
-      "identificator": "",
-      "password": ""
+      "user_name": "Bruce Via",
+      "email": "brucevia@gmail.com",
+      "phone_number": "999999999",
+      "identificator": "72880972",
+      "password": "123"
     }
   ]
 }

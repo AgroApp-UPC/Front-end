@@ -58,7 +58,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   tasks: any[] = [];
   recommendations: any[] = [];
   private routerSubscription!: Subscription;
-  
   private baseUrl = enviroment.BASE_URL;
 
   constructor(
@@ -88,12 +87,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.http.get<PreviewField[]>(`${this.baseUrl}${enviroment.ENDPOINT_PATH_PREVIEW_FIELDS}`).subscribe(data => {
+    this.http.get<PreviewField[]>(`${this.baseUrl}/preview_fields`).subscribe(data => {
       this.crops = data.map(field => ({
         id: field.id, name: field.title, nameKey: field.title.toUpperCase().replace(/ /g, '_'), image: field.image_url
       }));
     });
-    this.http.get<Field[]>(`${this.baseUrl}${enviroment.ENDPOINT_PATH_FIELDS}`).subscribe(data => {
+    this.http.get<Field[]>(`${this.baseUrl}/fields`).subscribe(data => {
       const today = new Date();
       const currentDayNumber = today.getDate();
       const dayKeys = [
@@ -111,14 +110,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }))
       };
     });
-    this.http.get<UpcomingTask[]>(`${this.baseUrl}${enviroment.ENDPOINT_PATH_UPCOMING_TASKS}`).subscribe(data => {
+    this.http.get<UpcomingTask[]>(`${this.baseUrl}/upcoming_tasks`).subscribe(data => {
       this.tasks = data.map(task => ({
         id: task.id, when: task.date === '07/10/2025' ? 'Today' : task.date,
         location: task.name, locationKey: task.name.toUpperCase().replace(/ /g, '_'),
         name: task.task, nameKey: task.task.toUpperCase().replace(/ /g, '_'), completed: false
       }));
     });
-    this.http.get<Recommendation[]>(`${this.baseUrl}${enviroment.ENDPOINT_PATH_RECOMMENDATIONS}`).subscribe(data => {
+    this.http.get<Recommendation[]>(`${this.baseUrl}/recommendations`).subscribe(data => {
       this.recommendations = data.map(rec => ({
         id: rec.id, field: rec.title, fieldKey: rec.title.toUpperCase().replace(/ /g, '_'),
         advice: rec.content, adviceKey: rec.content.toUpperCase().replace(/ /g, '_'),
@@ -128,15 +127,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   deleteTask(id: number, event: MouseEvent) {
     event.stopPropagation();
-    
-    const deleteTask$ = this.http.delete(`${this.baseUrl}${enviroment.ENDPOINT_PATH_TASK}/${id}`);
-    const deleteUpcomingTask$ = this.http.delete(`${this.baseUrl}${enviroment.ENDPOINT_PATH_UPCOMING_TASKS}/${id}`);
-    const updateField$ = this.http.get<Field[]>(`${this.baseUrl}${enviroment.ENDPOINT_PATH_FIELDS}`).pipe(
+
+    const deleteTask$ = this.http.delete(`${this.baseUrl}/task/${id}`);
+
+    const deleteUpcomingTask$ = this.http.delete(`${this.baseUrl}/upcoming_tasks/${id}`);
+
+    const updateField$ = this.http.get<Field[]>(`${this.baseUrl}/fields`).pipe(
       switchMap(fields => {
         const fieldToUpdate = fields.find(f => f.tasks && f.tasks.some(t => t.id === id));
         if (fieldToUpdate) {
           fieldToUpdate.tasks = fieldToUpdate.tasks.filter(t => t.id !== id);
-          return this.http.put(`${this.baseUrl}${enviroment.ENDPOINT_PATH_FIELDS}/${fieldToUpdate.id}`, fieldToUpdate);
+          return this.http.put(`${this.baseUrl}/fields/${fieldToUpdate.id}`, fieldToUpdate);
         }
         return of(null);
       })

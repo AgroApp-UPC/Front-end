@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { switchMap } from 'rxjs';
 import {TranslatePipe} from '@ngx-translate/core';
+import { enviroment } from '../../../../../../enviroment/enviroment';
 
 @Component({
   selector: 'app-add-field',
@@ -20,7 +21,7 @@ export class AddFieldComponent {
   fieldSize: string = '';
   imageFile: File | null = null;
   imageUrl: string | ArrayBuffer | null = 'https://images.unsplash.com/photo-1563252523-99321318e32a?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(private http: HttpClient, private router: Router) {}
 

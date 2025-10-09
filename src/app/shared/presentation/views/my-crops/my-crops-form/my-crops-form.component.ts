@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { enviroment } from '../../../../../../enviroment/enviroment';
 
 export interface Field {
   id: number;
@@ -40,7 +41,7 @@ export class CropFormComponent implements OnInit {
   public selectedFieldId: number | null = null;
 
   public fields$!: Observable<Field[]>;
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
   public statuses: string[] = ['Healthy', 'Attention', 'Critical'];
 
   constructor(private http: HttpClient) {}

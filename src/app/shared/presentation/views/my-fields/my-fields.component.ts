@@ -8,7 +8,6 @@ import {TranslatePipe} from '@ngx-translate/core';
 import { enviroment } from '../../../../../enviroment/enviroment';
 
 
-
 interface PreviewField {
   id: number;
   image_url: string;

@@ -15,6 +15,11 @@ import { ProfileComponent } from './shared/presentation/views/profile/profile.co
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [loginGuard]
+  },
+  {
     path: '',
     component: MainLayoutComponent,
     canActivate: [authGuard],
@@ -30,5 +35,6 @@ export const routes: Routes = [
       { path: 'community', component: CommunityComponent },
       { path: 'profile', component: ProfileComponent }
     ]
-  }
+  },
+  { path: '**', redirectTo: 'login' }
 ];

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import { enviroment } from '../../../../../enviroment/enviroment';
 
 
 interface PreviewField {
@@ -47,7 +48,7 @@ export class MyFieldsComponent implements OnInit {
 
   public fields$!: Observable<CombinedField[]>;
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(private http: HttpClient) {}
 

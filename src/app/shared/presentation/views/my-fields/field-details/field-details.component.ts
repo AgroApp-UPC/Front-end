@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject, switchMap, forkJoin } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TranslatePipe } from '@ngx-translate/core';
+import { enviroment } from '../../../../../../enviroment/enviroment';
 
 export interface Task { id: number; description: string; due_date: string; field: string; }
 export interface Field {
@@ -27,7 +28,7 @@ export class FieldDetailsComponent implements OnInit {
 
   private fieldSubject = new BehaviorSubject<Field | null>(null);
   public field$ = this.fieldSubject.asObservable();
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 

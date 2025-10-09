@@ -8,6 +8,7 @@ import { Crop } from '../../../../plants/crop/domain/model/crop.entity';
 import { CropService } from '../../../../plants/crop/services/crop.services';
 import { TranslatePipe } from '@ngx-translate/core';
 import {CropFormComponent} from './my-crops-form/my-crops-form.component';
+import { enviroment } from '../../../../../enviroment/enviroment';
 
 export interface Field {
   id: number;
@@ -36,7 +37,7 @@ export class MyCropsComponent implements OnInit {
   private cropsSubject = new BehaviorSubject<Crop[]>([]);
   public crops$: Observable<Crop[]> = this.cropsSubject.asObservable();
   public showNewCropForm = false;
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(
     private cropService: CropService,

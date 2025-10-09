@@ -8,6 +8,7 @@ import { TaskFormComponent } from './my-tasks-form/my-tasks-form.component';
 import { Task } from '../../../../plants/task/domain/model/task.entity';
 import { TaskService } from '../../../../plants/task/services/task.services';
 import { TranslatePipe } from '@ngx-translate/core';
+import { enviroment } from '../../../../../enviroment/enviroment';
 
 export interface Field {
   id: number;
@@ -27,7 +28,7 @@ export class MyTasksComponent implements OnInit {
   private tasksSubject = new BehaviorSubject<Task[]>([]);
   public tasks$: Observable<Task[]> = this.tasksSubject.asObservable();
   public showNewTaskForm = false;
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(
     private taskService: TaskService,

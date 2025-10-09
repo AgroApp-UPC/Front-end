@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import {forkJoin, of, Subscription, switchMap} from 'rxjs';
 import { filter } from 'rxjs/operators';
 import {NavigationEnd, Router, RouterLink} from '@angular/router';
+import { enviroment } from '../../../../../enviroment/enviroment';
 
 interface PreviewField {
   id: number;
@@ -57,6 +58,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   tasks: any[] = [];
   recommendations: any[] = [];
   private routerSubscription!: Subscription;
+  private baseUrl = enviroment.BASE_URL;
 
   constructor(
     private http: HttpClient,
@@ -85,12 +87,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    this.http.get<PreviewField[]>('http://localhost:3000/preview_fields').subscribe(data => {
+    this.http.get<PreviewField[]>(`${this.baseUrl}/preview_fields`).subscribe(data => {
       this.crops = data.map(field => ({
         id: field.id, name: field.title, nameKey: field.title.toUpperCase().replace(/ /g, '_'), image: field.image_url
       }));
     });
-    this.http.get<Field[]>('http://localhost:3000/fields').subscribe(data => {
+    this.http.get<Field[]>(`${this.baseUrl}/fields`).subscribe(data => {
       const today = new Date();
       const currentDayNumber = today.getDate();
       const dayKeys = [
@@ -113,14 +115,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }))
       };
     });
-    this.http.get<UpcomingTask[]>('http://localhost:3000/upcoming_tasks').subscribe(data => {
+    this.http.get<UpcomingTask[]>(`${this.baseUrl}/upcoming_tasks`).subscribe(data => {
       this.tasks = data.map(task => ({
         id: task.id, when: task.date === '07/10/2025' ? 'Today' : task.date,
         location: task.name, locationKey: task.name.toUpperCase().replace(/ /g, '_'),
         name: task.task, nameKey: task.task.toUpperCase().replace(/ /g, '_'), completed: false
       }));
     });
-    this.http.get<Recommendation[]>('http://localhost:3000/recommendations').subscribe(data => {
+    this.http.get<Recommendation[]>(`${this.baseUrl}/recommendations`).subscribe(data => {
       this.recommendations = data.map(rec => ({
         id: rec.id, field: rec.title, fieldKey: rec.title.toUpperCase().replace(/ /g, '_'),
         advice: rec.content, adviceKey: rec.content.toUpperCase().replace(/ /g, '_'),
@@ -130,16 +132,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   deleteTask(id: number, event: MouseEvent) {
     event.stopPropagation();
 
-    const deleteTask$ = this.http.delete(`http://localhost:3000/task/${id}`);
+    const deleteTask$ = this.http.delete(`${this.baseUrl}/task/${id}`);
 
-    const deleteUpcomingTask$ = this.http.delete(`http://localhost:3000/upcoming_tasks/${id}`);
+    const deleteUpcomingTask$ = this.http.delete(`${this.baseUrl}/upcoming_tasks/${id}`);
 
-    const updateField$ = this.http.get<Field[]>('http://localhost:3000/fields').pipe(
+    const updateField$ = this.http.get<Field[]>(`${this.baseUrl}/fields`).pipe(
       switchMap(fields => {
         const fieldToUpdate = fields.find(f => f.tasks && f.tasks.some(t => t.id === id));
         if (fieldToUpdate) {
           fieldToUpdate.tasks = fieldToUpdate.tasks.filter(t => t.id !== id);
-          return this.http.put(`http://localhost:3000/fields/${fieldToUpdate.id}`, fieldToUpdate);
+          return this.http.put(`${this.baseUrl}/fields/${fieldToUpdate.id}`, fieldToUpdate);
         }
         return of(null);
       })

@@ -25,8 +25,7 @@
               "src/styles.css"
             ],
             "server": "src/main.server.ts",
-            "outputMode": "server",
-            "prerender": false,
+            "outputMode": "static",
             "ssr": {
               "entry": "src/server.ts"
             }

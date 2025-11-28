@@ -7,13 +7,16 @@ export const authGuard = () => {
   const platformId = inject(PLATFORM_ID);
 
   if (isPlatformBrowser(platformId)) {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const hasToken = !!localStorage.getItem('authToken');
+    const isLoggedInFlag = localStorage.getItem('isLoggedIn') === 'true';
+    const isLoggedIn = hasToken || isLoggedInFlag;
+    console.log('AuthGuard check. hasToken:', hasToken, 'isLoggedInFlag:', isLoggedInFlag); // Debug
 
     if (!isLoggedIn) {
+      console.log('AuthGuard: Bloqueando acceso -> Login');
       router.navigate(['/login']);
       return false;
     }
   }
-
   return true;
 };

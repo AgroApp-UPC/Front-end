@@ -23,4 +23,31 @@ export class TaskService {
       })
     );
   }
+
+  // Nuevo método: obtener tareas por fieldId
+  getTasksByFieldId(fieldId: number): Observable<Task[]> {
+    const url = `${this.taskUrl}/field/${fieldId}`;
+    return this.http.get<any[]>(url).pipe(
+      map(response => TaskAssembler.toEntitiesFromResponse(response))
+    );
+  }
+
+  // Método para crear tarea con formato requerido por backend
+  createTask(payload: { fieldId: number; description: string; dueDate: string }): Observable<Task> {
+    return this.http.post<any>(this.taskUrl, payload).pipe(
+      map(response => TaskAssembler.toEntityFromResource(response))
+    );
+  }
+
+  // Método para actualizar tarea existente
+  updateTask(id: number, payload: { fieldId: number; description: string; dueDate: string }): Observable<Task> {
+    return this.http.put<any>(`${this.taskUrl}/${id}`, payload).pipe(
+      map(response => TaskAssembler.toEntityFromResource(response))
+    );
+  }
+
+  // Método opcional para eliminar tarea (centralizar)
+  deleteTask(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.taskUrl}/${id}`);
+  }
 }

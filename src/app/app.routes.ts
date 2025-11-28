@@ -12,12 +12,18 @@ import { CropFormComponent } from './shared/presentation/views/my-crops/my-crops
 import { FieldDetailsComponent } from './shared/presentation/views/my-fields/field-details/field-details.component';
 import { AddFieldComponent } from './shared/presentation/views/my-fields/add-field/add-field.component';
 import { ProfileComponent } from './shared/presentation/views/profile/profile.component';
+import { RegisterComponent } from './shared/presentation/views/register/register.component';
 
 export const routes: Routes = [
   {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [loginGuard] // Solo este guard
+  },
+  {
     path: 'login',
     component: LoginComponent,
-    canActivate: [loginGuard]
+    canActivate: [loginGuard],
   },
   {
     path: '',
@@ -36,5 +42,5 @@ export const routes: Routes = [
       { path: 'profile', component: ProfileComponent }
     ]
   },
-  { path: '**', redirectTo: 'login' }
+  { path: '**', redirectTo: 'register' }
 ];

@@ -160,6 +160,58 @@
   text-decoration: none;
 }
 
+/* AÑADIDO: Estilos para el estado vacío */
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.empty-text {
+  font-size: 1.2rem;
+  color: #777;
+  margin: 0;
+  text-align: center;
+}
+
+/* AÑADIDO: Estilos para el botón circular grande */
+.add-button-large {
+  width: 60px; /* igual ancho y alto para círculo perfecto */
+  height: 60px;
+  border-radius: 50%;
+  background-color: #a8bfa8;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; /* eliminar padding que descentraría el ícono */
+  line-height: 0; /* evitar desplazamiento vertical por line-height */
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-button-large:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.add-button-large mat-icon {
+  font-size: 32px; /* tamaño adecuado dentro de 60px */
+  width: 32px;
+  height: 32px;
+  line-height: 32px; /* asegurar centrado interno del ícono */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin: 0; /* sin márgenes extras */
+}
+
 /* Media query para pantallas más pequeñas */
 @media (max-width: 1024px) {
   .fields-grid {

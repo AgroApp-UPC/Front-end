@@ -7,13 +7,14 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Task } from '../../../../plants/task/domain/model/task.entity';
 import { TaskService } from '../../../../plants/task/services/task.services';
 import { FieldService } from '../../../../plants/field/services/field.services';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TaskDialogComponent } from '../my-fields/task-dialog/task-dialog.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-my-tasks',
   standalone: true,
-  imports: [ CommonModule, MatIconModule, MatButtonModule, TranslatePipe, MatDialogModule ],
+  imports: [ CommonModule, MatIconModule, MatButtonModule, TranslatePipe, MatDialogModule, MatSnackBarModule ],
   templateUrl: './my-tasks.component.html',
   styleUrls: ['./my-tasks.component.css']
 })
@@ -27,6 +28,8 @@ export class MyTasksComponent implements OnInit {
     private fieldService: FieldService,
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -34,14 +37,22 @@ export class MyTasksComponent implements OnInit {
     this.loadTasks();
   }
 
+  private showNotification(key: string, duration: number = 3000) {
+    this.translate.get([key, 'NOTIFICATIONS.CLOSE']).subscribe(translations => {
+      this.snackBar.open(translations[key], translations['NOTIFICATIONS.CLOSE'], {
+        duration,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+    });
+  }
+
   private loadTasks(): void {
-    // Proteger acceso a localStorage en SSR
     if (!isPlatformBrowser(this.platformId)) {
       this.tasksSubject.next([]);
       return;
     }
 
-    // 1. Obtener userId del localStorage
     const userIdStr = localStorage.getItem('userId');
     if (!userIdStr) {
       console.error('No userId found in localStorage');
@@ -50,32 +61,32 @@ export class MyTasksComponent implements OnInit {
     }
     const userId = parseInt(userIdStr, 10);
 
-    // 2. Obtener campos del usuario
+
     this.fieldService.getFieldsByUserId(userId).pipe(
       switchMap(fields => {
-        // 3. Si no hay campos, retornar array vacío
+
         if (!fields || fields.length === 0) {
           return of([]);
         }
 
-        // 4. Por cada campo, obtener sus tareas
+
         const taskRequests = fields.map(field =>
           this.taskService.getTasksByFieldId(field.id).pipe(
             map(tasks => {
-              // 5. Mapeo: Añadir el nombre del campo a cada tarea
+
               return tasks.map(task => ({
                 ...task,
-                field: field.name  // Asignar el nombre del campo
+                field: field.name
               }));
             })
           )
         );
 
-        // 6. Ejecutar todas las peticiones en paralelo
+
         return forkJoin(taskRequests);
       }),
       map(tasksArrays => {
-        // 7. Aplanar el array de arrays a una sola lista
+
         return tasksArrays.flat();
       })
     ).subscribe({
@@ -91,7 +102,6 @@ export class MyTasksComponent implements OnInit {
     });
   }
 
-  // Helper: Convertir fecha ISO a DD/MM/YYYY para mostrar
   private formatDateToDDMMYYYY(isoDate: string): string {
     if (!isoDate) return '';
     const match = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -107,12 +117,11 @@ export class MyTasksComponent implements OnInit {
     return `${dd}/${mm}/${yyyy}`;
   }
 
-  // Helper: Convertir DD/MM/YYYY a formato ISO para backend
   private parseDateFromDDMMYYYY(dateStr: string, originalIso?: string): string {
     if (!dateStr) return originalIso || '';
     const match = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
     if (!match) {
-      alert('Formato inválido. Usa DD/MM/YYYY.');
+      this.showNotification('DATE.ERROR_INVALID_FORMAT');
       return originalIso || '';
     }
     const [, dd, mm, yyyy] = match;
@@ -120,12 +129,12 @@ export class MyTasksComponent implements OnInit {
     const month = parseInt(mm, 10);
     const year = parseInt(yyyy, 10);
     if (day < 1 || month < 1 || month > 12 || year < 1900) {
-      alert('Fecha fuera de rango.');
+      this.showNotification('DATE.ERROR_OUT_OF_RANGE');
       return originalIso || '';
     }
     const dateObj = new Date(year, month - 1, day);
     if (isNaN(dateObj.getTime())) {
-      alert('Fecha inválida.');
+      this.showNotification('DATE.ERROR_INVALID');
       return originalIso || '';
     }
     const pad = (n: number) => String(n).padStart(2, '0');
@@ -141,7 +150,7 @@ export class MyTasksComponent implements OnInit {
       (typeof dynamicTask.field_id === 'number' ? dynamicTask.field_id : null);
 
     if (fieldIdResolved == null) {
-      alert('Error: No se puede identificar el campo de esta tarea');
+      this.showNotification('TASKS.ERROR_NO_FIELD');
       return;
     }
 
@@ -155,8 +164,8 @@ export class MyTasksComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result) return; // cancelado
-      if (!result.dueDateIso) return; // formato inválido no se cerró correctamente
+      if (!result) return;
+      if (!result.dueDateIso) return;
 
       const payload: { fieldId: number; description: string; dueDate: string } = {
         fieldId: fieldIdResolved,
@@ -181,7 +190,7 @@ export class MyTasksComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error actualizando tarea:', err);
-          // revertir
+
           const reverted = this.tasksSubject.getValue().map(t =>
             t.id === task.id ? { ...t, description: task.description, due_date: task.due_date } : t
           );
@@ -194,24 +203,27 @@ export class MyTasksComponent implements OnInit {
 
   deleteTask(id: number, event: Event): void {
     event.stopPropagation();
-    if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
 
-    const originalTasks = this.tasksSubject.getValue();
-    // Optimista: quitar de la vista
-    this.tasksSubject.next(originalTasks.filter(t => t.id !== id));
-    this.cdr.detectChanges();
+    this.translate.get('TASKS.DELETE_CONFIRM').subscribe(message => {
+      if (!confirm(message)) return;
 
-    this.taskService.deleteTask(id).subscribe({
-      next: () => {
-        alert('Tarea eliminada');
-      },
-      error: err => {
-        console.error('Error eliminando tarea:', err);
-        alert('No se pudo eliminar la tarea');
-        // Revertir
-        this.tasksSubject.next(originalTasks);
-        this.cdr.detectChanges();
-      }
+      const originalTasks = this.tasksSubject.getValue();
+
+      this.tasksSubject.next(originalTasks.filter(t => t.id !== id));
+      this.cdr.detectChanges();
+
+      this.taskService.deleteTask(id).subscribe({
+        next: () => {
+          this.showNotification('TASKS.DELETE_SUCCESS');
+        },
+        error: err => {
+          console.error('Error eliminando tarea:', err);
+          this.showNotification('TASKS.DELETE_ERROR');
+
+          this.tasksSubject.next(originalTasks);
+          this.cdr.detectChanges();
+        }
+      });
     });
   }
 }

@@ -37,7 +37,6 @@ export class TaskService {
     return this.http.put<Task>(url, task);
   }
 
-  // Nuevo: actualizar con payload camelCase específico del backend
   updateTaskByPayload(id: number, payload: { fieldId: number; description: string; dueDate: string }): Observable<any> {
     const url = `${this.taskUrl}/${id}`;
     return this.http.put<any>(url, payload);

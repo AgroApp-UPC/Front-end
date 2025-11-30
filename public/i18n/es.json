@@ -10,7 +10,7 @@
     "MY_TASKS": "Mis tareas",
     "COMMUNITY": "Comunidad",
     "MY_LOCATION": "Mi ubicación",
-    "LOCATION_NAME": "Fundo Santa Rosa"
+    "LOCATION_ANONYMOUS": "Ubicación Anónima"
   },
   "LANGUAGE": {
     "SELECT": "Seleccionar idioma",
@@ -157,7 +157,9 @@
       "PHONE_PLACEHOLDER": "Número de teléfono",
       "ID_PLACEHOLDER": "Documento de identidad",
       "NOTIFICATIONS": "Notificaciones",
-      "LOCATION": "Ubicación"
+      "LOCATION": "Ubicación",
+      "LOCATION_PUBLIC": "Mostrar mi ubicación públicamente",
+      "LOCATION_PUBLIC_HINT": "Si está activo, tu ubicación será visible en el sidebar"
     },
     "PASSWORD": {
       "TITLE": "Cambiar contraseña",
@@ -178,6 +180,7 @@
     "PASSWORD_MISMATCH": "Las nuevas contraseñas no coinciden.",
     "PASSWORD_UPDATE_SUCCESS": "Contraseña actualizada correctamente.",
     "PASSWORD_UPDATE_ERROR": "No se pudo cambiar la contraseña. Verifique la actual.",
+    "ACCOUNT_DELETE_CONFIRM": "¿Estás seguro de que deseas eliminar tu cuenta? Tus datos se borrarán y esta acción no se puede deshacer.",
     "ACCOUNT_DELETE_SUCCESS": "Tu cuenta ha sido eliminada. ¡Hasta pronto!",
     "ACCOUNT_DELETE_ERROR": "Hubo un error eliminando tu cuenta."
   },

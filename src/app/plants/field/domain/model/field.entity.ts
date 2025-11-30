@@ -4,7 +4,7 @@ export class Field{
   days:string;
   image_url:string;
   status:string;
-  field_size:string; // nuevo: tamaño del campo (compatibilidad con fieldSize del backend)
+  field_size:string;
 
   constructor(){
     this.id=0;

@@ -26,12 +26,10 @@ import { TaskService } from '../../../../plants/services/task.services';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  // Tarjetas de cultivos (map de Field -> objeto simple para la vista)
   crops: { id: number; name: string; image: string; }[] = [];
-  // Mantener estructura existente para evitar romper plantilla (pero vacíos para estados vacíos)
   harvestDate: { dayName: string; dayNumber: number | null; harvests: any[] } = { dayName: '', dayNumber: null, harvests: [] };
-  tasks: any[] = []; // Estados vacíos por ahora
-  recommendations: any[] = []; // Estados vacíos por ahora
+  tasks: any[] = [];
+  recommendations: any[] = [];
   private routerSubscription!: Subscription;
 
   constructor(
@@ -45,7 +43,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadData();
 
-    // Recargar al navegar nuevamente al dashboard (mantener lógica existente)
     this.routerSubscription = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
@@ -60,9 +57,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadData() {
-    // Proteger acceso a localStorage en SSR
     if (!isPlatformBrowser(this.platformId)) {
-      // En el servidor, no hacemos nada para evitar errores
+
       return;
     }
 
@@ -80,14 +76,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.fieldService.getFieldsByUserId(userId).pipe(
       switchMap(fields => {
-        // Mapear crops (tarjetas de campos)
         this.crops = fields.map(field => ({ id: field.id, name: field.name, image: field.image_url || '' }));
 
         if (fields.length === 0) {
           return of({ harvests: [], tasks: [] });
         }
 
-        // Observables de cultivos por campo para próximas cosechas
         const cropObservables = fields.map(field => this.cropService.getCropByFieldId(field.id).pipe(
           map(crop => ({ field, crop }))
         ));

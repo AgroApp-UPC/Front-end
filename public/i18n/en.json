@@ -10,7 +10,7 @@
     "MY_TASKS": "My tasks",
     "COMMUNITY": "Community",
     "MY_LOCATION": "My location",
-    "LOCATION_NAME": "Fundo Santa Rosa"
+    "LOCATION_ANONYMOUS": "Anonymous Location"
   },
   "LANGUAGE": {
     "SELECT": "Select language",
@@ -157,7 +157,9 @@
       "PHONE_PLACEHOLDER": "Phone number",
       "ID_PLACEHOLDER": "Identity document",
       "NOTIFICATIONS": "Notifications",
-      "LOCATION": "Location"
+      "LOCATION": "Location",
+      "LOCATION_PUBLIC": "Show my location publicly",
+      "LOCATION_PUBLIC_HINT": "If enabled, your location will be visible in the sidebar"
     },
     "PASSWORD": {
       "TITLE": "Change password",
@@ -178,6 +180,7 @@
     "PASSWORD_MISMATCH": "New passwords do not match.",
     "PASSWORD_UPDATE_SUCCESS": "Password updated successfully.",
     "PASSWORD_UPDATE_ERROR": "Could not change password. Verify current password.",
+    "ACCOUNT_DELETE_CONFIRM": "Are you sure you want to delete your account? Your data will be erased and this action cannot be undone.",
     "ACCOUNT_DELETE_SUCCESS": "Your account has been deleted. Goodbye!",
     "ACCOUNT_DELETE_ERROR": "There was an error deleting your account."
   },

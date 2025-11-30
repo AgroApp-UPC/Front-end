@@ -6,12 +6,11 @@ import { Crop } from '../domain/model/crop.entity';
 import { CropAssembler } from '../domain/model/crop.assembler';
 import {enviroment} from '../../../../enviroment/enviroment';
 
-// DTO para creación de cultivos según backend
 export interface CreateCropFieldRequest {
   fieldId: number;
-  crop: string; // En el front normalmente llamado title
-  plantingDate: string; // ISO (yyyy-MM-ddTHH:mm:ss)
-  harvestDate: string; // ISO (yyyy-MM-ddTHH:mm:ss)
+  crop: string;
+  plantingDate: string;
+  harvestDate: string;
   status: 'Healthy' | 'Attention' | 'Critical';
   soilType?: string;
   sunlight?: string;
@@ -54,10 +53,8 @@ export class CropService {
   updateCrop(crop: Crop): Observable<Crop> {
     const url = `${this.cropUrl}/${crop.id}`;
 
-    // Transformar el objeto local al formato que espera el backend
-    // El frontend usa 'title' pero el backend espera 'crop'
     const payload = {
-      crop: crop.title,  // Mapear title a crop
+      crop: crop.title,
       status: crop.status,
       plantingDate: crop.planting_date,
       harvestDate: crop.harvest_date,

@@ -29,12 +29,9 @@ export class RegisterComponent {
 
   registerForm: FormGroup = this.fb.group({
     fullName: ['', Validators.required],
-    // Validación: Exactamente 8 dígitos numéricos
     dni: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
-    // Validación: Debe empezar con '+' seguido de números
     phone: ['', [Validators.required, Validators.pattern(/^\+?\d+[\d\s]*$/)]],
     email: ['', [Validators.required, Validators.email]],
-    // Validación: Mayor a 5 cifras (mínimo 6)
     password: ['', [Validators.required, Validators.minLength(6)]]
   });
 
@@ -46,7 +43,6 @@ export class RegisterComponent {
 
     const formValues = this.registerForm.value;
 
-    // Mapeo al modelo de dominio User
     const newUser = new User();
     newUser.userName = formValues.fullName;
     newUser.identificator = formValues.dni;

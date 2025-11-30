@@ -2,14 +2,14 @@ import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import { MatIconModule } from '@angular/material/icon';import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { FieldService } from '../../../../../plants/field/services/field.services';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-field',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, MatIconModule, TranslatePipe],
+  imports: [CommonModule, RouterLink, FormsModule, MatIconModule, TranslatePipe, MatSnackBarModule],
   templateUrl: './add-field.component.html',
   styleUrls: ['./add-field.component.css']
 })
@@ -25,8 +25,20 @@ export class AddFieldComponent {
   constructor(
     private fieldService: FieldService,
     private router: Router,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
+
+  private showNotification(key: string, duration: number = 3000) {
+    this.translate.get([key, 'NOTIFICATIONS.CLOSE']).subscribe(translations => {
+      this.snackBar.open(translations[key], translations['NOTIFICATIONS.CLOSE'], {
+        duration,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+    });
+  }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -60,25 +72,23 @@ export class AddFieldComponent {
 
   async onSave() {
     if (!this.fieldName || !this.location || !this.fieldSize) {
-      alert('Por favor complete todos los campos obligatorios.');
+      this.showNotification('FIELDS.CREATE_FORM_INCOMPLETE');
       return;
     }
 
-    // Proteger acceso a localStorage en SSR
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    // Obtener userId de localStorage
     const userIdStr = localStorage.getItem('userId');
     if (!userIdStr) {
-      alert('Usuario no autenticado. Por favor inicie sesión nuevamente.');
+      this.showNotification('FIELDS.CREATE_USER_NOT_AUTH');
       this.router.navigate(['/login']);
       return;
     }
     const userId = parseInt(userIdStr, 10);
     if (isNaN(userId)) {
-      alert('ID de usuario inválido. Por favor inicie sesión nuevamente.');
+      this.showNotification('FIELDS.CREATE_INVALID_USER');
       this.router.navigate(['/login']);
       return;
     }
@@ -86,7 +96,7 @@ export class AddFieldComponent {
     this.isUploading = true;
 
     try {
-      // Convertir imagen a Base64 si hay archivo seleccionado
+
       let imageBase64: string;
       if (this.imageFile) {
         imageBase64 = await this.fileToBase64(this.imageFile);
@@ -94,36 +104,36 @@ export class AddFieldComponent {
         imageBase64 = this.defaultImageUrl;
       }
 
-      // Construir objeto para enviar al backend
+
       const newField = {
         userId: userId,
         imageUrl: imageBase64,
         name: this.fieldName,
         location: this.location,
-        fieldSize: this.fieldSize  // Usar camelCase para el backend
+        fieldSize: this.fieldSize
       };
 
-      // Enviar directamente al backend
+
       this.fieldService.createField(newField).subscribe({
         next: () => {
           this.isUploading = false;
-          alert('Campo creado exitosamente.');
+          this.showNotification('FIELDS.CREATE_SUCCESS');
           this.router.navigate(['/my-fields']);
         },
         error: (err) => {
           console.error('Error al crear campo:', err);
           this.isUploading = false;
           if (err.status === 400) {
-            alert('Datos inválidos. Verifique que el userId sea correcto.');
+            this.showNotification('FIELDS.CREATE_INVALID_DATA');
           } else {
-            alert('Error al crear el campo. Intente nuevamente.');
+            this.showNotification('FIELDS.CREATE_ERROR');
           }
         }
       });
     } catch (error) {
       console.error('Error al convertir imagen a Base64:', error);
       this.isUploading = false;
-      alert('Error al procesar la imagen. Intente nuevamente.');
+      this.showNotification('FIELDS.IMAGE_ERROR');
     }
   }
 }

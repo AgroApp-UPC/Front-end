@@ -37,7 +37,6 @@ export class EditHistoryDialogComponent {
     private dialogRef: MatDialogRef<EditHistoryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditHistoryData
   ) {
-    // Initialize strings from incoming data (ISO->DD/MM/YYYY or keep DD/MM/YYYY)
     const toDDMMYYYY = (v?: string | Date | null) => {
       if (!v) return '';
       const s = typeof v === 'string' ? v : new Date(v).toISOString();

@@ -6,6 +6,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export interface EditCropDialogData {
   title: string;
@@ -22,44 +24,53 @@ export interface EditCropDialogData {
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslatePipe,
+    MatSnackBarModule
   ],
   templateUrl: './edit-crop-dialog.component.html',
   styleUrls: ['./edit-crop-dialog.component.css']
 })
 export class EditCropDialogComponent {
-  // Copia de los datos para no mutar directamente el objeto original
   data: EditCropDialogData;
 
-  // Opciones de estado disponibles
   statuses: string[] = ['Healthy', 'Attention', 'Critical'];
 
   constructor(
     public dialogRef: MatDialogRef<EditCropDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public injectedData: EditCropDialogData
+    @Inject(MAT_DIALOG_DATA) public injectedData: EditCropDialogData,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar
   ) {
-    // Crear una copia de los datos recibidos
     this.data = { ...injectedData };
   }
 
+  private showNotification(key: string, duration: number = 3000) {
+    this.translate.get([key, 'NOTIFICATIONS.CLOSE']).subscribe(translations => {
+      this.snackBar.open(translations[key], translations['NOTIFICATIONS.CLOSE'], {
+        duration,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+    });
+  }
+
   onCancel(): void {
-    // Cerrar sin enviar datos (equivalente a cancelar)
     this.dialogRef.close();
   }
 
   onSave(): void {
-    // Validación básica
     if (!this.data.title || !this.data.title.trim()) {
-      alert('El nombre del cultivo no puede estar vacío');
+      this.showNotification('CROPS.NAME_REQUIRED');
       return;
     }
 
     if (!this.data.status) {
-      alert('Debes seleccionar un estado');
+      this.showNotification('CROPS.STATUS_REQUIRED');
       return;
     }
 
-    // Cerrar enviando los datos actualizados
+
     this.dialogRef.close(this.data);
   }
 }

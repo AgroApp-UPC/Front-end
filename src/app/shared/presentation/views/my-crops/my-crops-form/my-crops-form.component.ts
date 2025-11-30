@@ -71,7 +71,6 @@ export class CropFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Proteger acceso a localStorage en SSR
     if (!isPlatformBrowser(this.platformId)) {
       this.fields$ = of([]);
       return;
@@ -88,9 +87,8 @@ export class CropFormComponent implements OnInit {
   }
 
   private toIsoDate(dateStr: string): string {
-    // dateStr viene en formato yyyy-MM-dd del input date HTML
     if (!dateStr) return '';
-    return `${dateStr}T00:00:00`; // Suficiente para LocalDateTime en backend
+    return `${dateStr}T00:00:00`;
   }
 
   onSubmit(): void {

@@ -15,16 +15,15 @@ import { TaskService } from '../../../../../plants/services/task.services';
 
 export interface Field {
   id: number; name: string; image_url: string; product: string; location: string;
-  field_size: string; cropName: string; // renombrado el anterior string 'crop'
+  field_size: string; cropName: string;
   days_since_planting: string; planting_date: string;
   expecting_harvest: string; "Soil Type": string; watering: string; sunlight: string;
   status: string; progress_history: { id: number; watered: string; fertilized: string; pests: string; }[];
   tasks: { id: number; date: string; name: string; task: string; }[];
-  crop?: { id?: number; crop?: string; title?: string; status?: string; plantingDate?: string; harvestDate?: string; soilType?: string; sunlight?: string; watering?: string; }; // objeto cultivo
-  // Opcionales para compatibilidad directa con backend
+  crop?: { id?: number; crop?: string; title?: string; status?: string; plantingDate?: string; harvestDate?: string; soilType?: string; sunlight?: string; watering?: string; };
   imageUrl?: string;
   fieldSize?: string;
-  progressHistoryId?: number; // nuevo opcional
+  progressHistoryId?: number;
 }
 
 @Component({
@@ -97,7 +96,6 @@ export class FieldDetailsComponent implements OnInit {
                   } : undefined
                 };
 
-                // Cálculo adicional: días hasta cosecha (si harvestDate disponible)
                 if (normalized.crop?.harvestDate) {
                   const today = new Date(); today.setHours(0,0,0,0);
                   const harvestDate = new Date(normalized.crop.harvestDate); harvestDate.setHours(0,0,0,0);

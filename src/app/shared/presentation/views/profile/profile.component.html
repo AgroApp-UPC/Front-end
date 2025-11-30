@@ -22,16 +22,26 @@
         <input type="text" [(ngModel)]="user.identificator" name="identificator" [readonly]="true" [placeholder]="'PROFILE.PERSONAL_INFO.ID_PLACEHOLDER' | translate">
       </div>
 
+      <div class="form-field">
+        <input type="text" [(ngModel)]="user.location" name="location" [placeholder]="'PROFILE.PERSONAL_INFO.LOCATION' | translate">
+      </div>
+
       <div class="form-actions right">
         <button class="save-btn" (click)="onSavePersonalInfo()">{{'PROFILE.PASSWORD.SAVE_BUTTON' | translate}}</button>
       </div>
 
       <div class="toggle-field">
-        <label>{{'PROFILE.PERSONAL_INFO.NOTIFICATIONS' | translate}}</label>
-        <mat-slide-toggle color="primary"></mat-slide-toggle>
+        <label>{{'PROFILE.PERSONAL_INFO.LOCATION_PUBLIC' | translate}}</label>
+        <mat-slide-toggle
+          color="primary"
+          [(ngModel)]="user.isLocationPublic"
+          (change)="onToggleLocationPrivacy($event.checked)"
+          name="isLocationPublic">
+        </mat-slide-toggle>
       </div>
+
       <div class="toggle-field">
-        <label>{{'PROFILE.PERSONAL_INFO.LOCATION' | translate}}</label>
+        <label>{{'PROFILE.PERSONAL_INFO.NOTIFICATIONS' | translate}}</label>
         <mat-slide-toggle color="primary"></mat-slide-toggle>
       </div>
     </section>

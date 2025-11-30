@@ -10,6 +10,8 @@ export class UserAssembler {
     user.phoneNumber = resource.phoneNumber;
     user.identificator = resource.identificator;
     user.password = resource.password;
+    user.location = resource.location;
+    user.isLocationPublic = resource.isLocationPublic ?? true; // Por defecto true si no viene del backend
     return user;
   }
 
@@ -20,7 +22,9 @@ export class UserAssembler {
       email: user.email,
       phoneNumber: user.phoneNumber,
       identificator: user.identificator,
-      password: user.password
+      password: user.password,
+      location: user.location,
+      isLocationPublic: user.isLocationPublic ?? true
     };
   }
 }

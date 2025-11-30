@@ -6,11 +6,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 export interface TaskDialogData {
   description?: string;
-  dueDate?: string; // ISO or date string
+  dueDate?: string;
   field?: string;
 }
 
@@ -27,17 +28,20 @@ export interface TaskDialogData {
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    MatSnackBarModule
   ]
 })
 export class TaskDialogComponent {
   description: string = '';
-  dueDateString: string = ''; // formato DD/MM/YYYY
+  dueDateString: string = '';
   field: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<TaskDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: TaskDialogData | null
+    @Inject(MAT_DIALOG_DATA) public data: TaskDialogData | null,
+    private translate: TranslateService,
+    private snackBar: MatSnackBar
   ) {
     if (data) {
       this.description = data.description || '';
@@ -52,6 +56,16 @@ export class TaskDialogComponent {
       }
       this.field = data.field || '';
     }
+  }
+
+  private showNotification(key: string, duration: number = 3000) {
+    this.translate.get([key, 'NOTIFICATIONS.CLOSE']).subscribe(translations => {
+      this.snackBar.open(translations[key], translations['NOTIFICATIONS.CLOSE'], {
+        duration,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+    });
   }
 
   onCancel(): void {
@@ -74,8 +88,7 @@ export class TaskDialogComponent {
   onSave(): void {
     const iso = this.toIso(this.dueDateString);
     if (!iso) {
-      // Mostrar error simple (podría usar snackbar si estuviera disponible aquí)
-      alert('Formato inválido. Usa DD/MM/YYYY.');
+      this.showNotification('DATE.ERROR_INVALID_FORMAT');
       return;
     }
     this.dialogRef.close({

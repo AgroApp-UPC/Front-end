@@ -1,10 +1,12 @@
 export class User {
   id: number;
-  userName: string;      // Nombre completo
-  email: string;         // Correo
-  phoneNumber: string;   // Celular con código de país (ej: +51...)
-  identificator: string; // DNI (8 cifras)
-  password?: string;     // Contraseña
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  identificator: string;
+  password?: string;
+  location?: string;
+  isLocationPublic?: boolean;
 
   constructor() {
     this.id = 0;
@@ -13,5 +15,7 @@ export class User {
     this.phoneNumber = '';
     this.identificator = '';
     this.password = '';
+    this.location = '';
+    this.isLocationPublic = true; // Por defecto, la ubicación es pública
   }
 }

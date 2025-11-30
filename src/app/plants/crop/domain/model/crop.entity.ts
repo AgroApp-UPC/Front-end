@@ -6,7 +6,7 @@ export class Crop{
   harvest_date:string;
   field:string;
   status:string;
-  fieldName?: string; // nombre del campo asociado (inyectado en frontend)
+  fieldName?: string;
   soilType?: string;
   sunlight?: string;
   watering?: string;

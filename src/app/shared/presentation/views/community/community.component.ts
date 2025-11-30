@@ -31,8 +31,8 @@ import { UserEventsService } from '../../../infrastructure/services/user-events.
 })
 export class CommunityComponent implements OnInit, OnDestroy {
 
-  public recommendations$!: Observable<Community[]>; // Observable expuesto para plantilla
-  private recommendationsSubject = new BehaviorSubject<Community[]>([]); // Estado interno mutable
+  public recommendations$!: Observable<Community[]>;
+  private recommendationsSubject = new BehaviorSubject<Community[]>([]);
   public newComment: string = '';
   public isFormVisible: boolean = false;
   private currentUserId: number | null = null;
@@ -48,7 +48,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // Proteger acceso a localStorage en SSR
     if (isPlatformBrowser(this.platformId)) {
       const userIdStr = localStorage.getItem('userId');
       this.currentUserId = userIdStr ? parseInt(userIdStr, 10) : null;
@@ -58,7 +57,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
     this.userEvents.userNameChanged$
       .pipe(takeUntil(this.destroy$))
       .subscribe(payload => {
-        // Si aún no tenemos lista cargada, marcar como pendiente
         if (this.recommendationsSubject.value.length === 0) {
           this.pendingNameChange = payload;
         } else {
@@ -76,7 +74,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
     this.communityService.getCommunityRecommendations().subscribe({
       next: list => {
         this.recommendationsSubject.next(list);
-        // Aplicar cambio de nombre pendiente si existe
         if (this.pendingNameChange) {
           this.applyNameChange(this.pendingNameChange.oldName, this.pendingNameChange.newName);
           this.pendingNameChange = null;
@@ -89,7 +86,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
   private applyNameChange(oldName: string, newName: string) {
     if (!newName) return;
     const current = this.recommendationsSubject.value.map(item => {
-      // Actualizar si coincide por userId (preferente) o por nombre antiguo
       if ((this.currentUserId && item.userId === this.currentUserId) || item.user === oldName) {
         item = { ...item, user: newName };
       }
@@ -120,7 +116,6 @@ export class CommunityComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Proteger acceso a localStorage en SSR
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }

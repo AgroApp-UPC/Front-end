@@ -1,11 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
-// Interceptor funcional para añadir el header Authorization si existe el token en localStorage
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  // Evitar errores en SSR comprobando entorno
   let token: string | null = null;
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem('token'); // Clave indicada por el usuario
+    token = localStorage.getItem('token');
     if (token) {
       token = token.trim();
     }

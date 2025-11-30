@@ -8,7 +8,7 @@ import { UserAssembler } from '../domain/model/profile.assembler';
 
 interface LoginResponse {
   token: string;
-  [key: string]: any; // Para campos adicionales que pueda devolver el backend
+  [key: string]: any;
 }
 
 @Injectable({
@@ -46,7 +46,8 @@ export class UserService {
     const body = {
       userName: user.userName,
       email: user.email,
-      phoneNumber: user.phoneNumber
+      phoneNumber: user.phoneNumber,
+      isLocationPublic: user.isLocationPublic
     };
     return this.http.put<any>(url, body).pipe(
       map(response => UserAssembler.toEntityFromResource(response))

@@ -1,4 +1,4 @@
-import {Community} from './community.entity'
+import {Community} from './community.entity';
 
 export class CommunityAssembler {
 

@@ -20,10 +20,10 @@
         <td>{{ task.due_date | date:'dd/MM/yyyy' }}</td>
         <td>{{ task.field }}</td>
         <td class="actions-cell">
-          <button mat-icon-button aria-label="Edit task" (click)="editTask(task, $event)">
+          <button mat-icon-button [attr.aria-label]="'TASKS.ACTIONS.EDIT' | translate" (click)="editTask(task, $event)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button aria-label="Delete task" (click)="deleteTask(task.id, $event)">
+          <button mat-icon-button [attr.aria-label]="'TASKS.ACTIONS.DELETE' | translate" (click)="deleteTask(task.id, $event)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

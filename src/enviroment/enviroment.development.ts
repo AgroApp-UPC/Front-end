@@ -1,5 +1,5 @@
 export const enviroment = {
-  BASE_URL: "https://back-end-open.onrender.com/api/v1",
+  BASE_URL: "https://back-end-w21w.onrender.com/api/v1",
 
   ENDPOINT_PATH_CROP_FIELDS:"/crop-fields",
   ENDPOINT_PATH_FIELDS:"/fields",

@@ -29,11 +29,17 @@
     @if (!isCollapsed()) {
       <div class="location-section">
         <div class="location-icon">
-          <mat-icon>location_on</mat-icon>
+          <mat-icon>{{ isLocationPublic() ? 'location_on' : 'visibility_off' }}</mat-icon>
         </div>
         <div class="location-info">
           <p class="location-label">{{ 'SIDEBAR.MY_LOCATION' | translate }}</p>
-          <p class="location-name">{{ 'SIDEBAR.LOCATION_NAME' | translate }}</p>
+          <p class="location-name">
+            @if (isLocationPublic()) {
+              {{ userLocation() || 'Ubicación desconocida' }}
+            } @else {
+              Ubicación Anónima
+            }
+          </p>
         </div>
       </div>
     }

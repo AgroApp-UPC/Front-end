@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -25,9 +25,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     TranslatePipe,
     MatSnackBarModule,
-    MatFormFieldModule, // añadido para mat-form-field
-    MatInputModule,     // añadido para matInput
-    MatButtonModule     // añadido para mat-icon-button
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
   public showNewPassword = false;
   public showConfirmPassword = false;
 
-  private originalEmail: string = ''; // Email original para detectar cambios
+  private originalEmail: string = '';
   private originalUserName: string = '';
 
   private showNotification(key: string, actionKey: string = 'NOTIFICATIONS.CLOSE', duration: number = 3000) {
@@ -65,20 +65,19 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Proteger acceso a localStorage en SSR
+
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
     const storedId = localStorage.getItem('userId');
     if (!storedId) {
-      // Sin sesión: redirigir a login
+
       this.router.navigate(['/login']);
       return;
     }
     const numericId = parseInt(storedId, 10);
     if (isNaN(numericId)) {
-      // ID inválido: limpiar y redirigir
       this.onLogout();
       return;
     }
@@ -87,11 +86,10 @@ export class ProfileComponent implements OnInit {
       next: (userData) => {
         this.user = userData;
         this.originalEmail = this.user.email;
-        this.originalUserName = this.user.userName; // Capturar nombre inicial
+        this.originalUserName = this.user.userName;
       },
       error: (err) => {
         console.error('Error cargando usuario', err);
-        // Si el backend falla (404 / borrado), cerrar sesión y redirigir
         this.onLogout();
       }
     });
@@ -100,15 +98,12 @@ export class ProfileComponent implements OnInit {
   onSavePersonalInfo() {
     if (!this.user) return;
 
-    // Validación teléfono: debe iniciar con '+' seguido de código país y luego dígitos (mínimo +<código><8 dígitos>)
     const phone = this.user.phoneNumber.trim();
-    const phoneRegex = /^\+[0-9]{1,3}[0-9]{6,11}$/; // código país 1-3 dígitos + número 6-11 dígitos
+    const phoneRegex = /^\+[0-9]{1,3}[0-9]{6,11}$/;
     if (!phoneRegex.test(phone)) {
       this.showNotification('PROFILE.PHONE_INVALID');
       return;
     }
-
-    // DNI no editable, se omite validación de longitud para evitar bloqueo si backend maneja distinto.
 
     this.userService.updateUser(this.user).subscribe({
       next: (response) => {
@@ -120,8 +115,13 @@ export class ProfileComponent implements OnInit {
         }
         if (this.user.userName !== this.originalUserName) {
           this.userEvents.emitUserNameChanged({ oldName: this.originalUserName, newName: this.user.userName });
-          this.originalUserName = this.user.userName; // actualizar referencia
+          this.originalUserName = this.user.userName;
         }
+        // Emitir evento de cambio de ubicación para actualizar el sidebar
+        this.userEvents.emitUserLocationChanged({
+          location: this.user.location || '',
+          isPublic: this.user.isLocationPublic ?? true
+        });
         this.showNotification('PROFILE.UPDATE_SUCCESS');
         this.originalEmail = this.user.email;
       },
@@ -140,7 +140,7 @@ export class ProfileComponent implements OnInit {
       this.showNotification('PROFILE.PASSWORD_MISMATCH');
       return;
     }
-    // Llamar endpoint dedicado
+
     this.userService.changePassword(this.user.id, this.currentPassword, this.newPassword).subscribe({
       next: () => {
         this.currentPassword = '';
@@ -155,6 +155,26 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Persistir cambios de privacidad de ubicación al togglear
+  onToggleLocationPrivacy(newValue: boolean) {
+    if (!this.user) return;
+    this.user.isLocationPublic = newValue;
+    // Persistir en backend
+    this.userService.updateUser(this.user).subscribe({
+      next: (response) => {
+        this.user = response;
+        // Emitir evento para actualizar la Sidebar inmediatamente
+        this.userEvents.emitUserLocationChanged({
+          location: this.user.location || '',
+          isPublic: this.user.isLocationPublic ?? true
+        });
+        // Notificación en español
+        this.showNotification('PROFILE.UPDATE_SUCCESS');
+      },
+      error: () => this.showNotification('PROFILE.UPDATE_ERROR')
+    });
+  }
+
   onLogout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('isLoggedIn');
@@ -164,20 +184,22 @@ export class ProfileComponent implements OnInit {
   onDeleteAccount(): void {
     if (!this.user) return;
 
-    const confirmation = confirm('¿Estás seguro de que deseas eliminar tu cuenta? Tus datos se borrarán y esta acción no se puede deshacer.');
+    this.translate.get('PROFILE.ACCOUNT_DELETE_CONFIRM').subscribe(message => {
+      const confirmation = confirm(message);
 
-    if (confirmation) {
-      this.userService.deleteUser(this.user.id).subscribe({
-        next: () => {
-          this.showNotification('PROFILE.ACCOUNT_DELETE_SUCCESS');
-          this.onLogout();
-        },
-        error: (err) => {
-          console.error('Error eliminando la cuenta:', err);
-          this.showNotification('PROFILE.ACCOUNT_DELETE_ERROR');
-        }
-      });
-    }
+      if (confirmation) {
+        this.userService.deleteUser(this.user.id).subscribe({
+          next: () => {
+            this.showNotification('PROFILE.ACCOUNT_DELETE_SUCCESS');
+            this.onLogout();
+          },
+          error: (err) => {
+            console.error('Error eliminando la cuenta:', err);
+            this.showNotification('PROFILE.ACCOUNT_DELETE_ERROR');
+          }
+        });
+      }
+    });
   }
 
   toggleCurrent() { this.showCurrentPassword = !this.showCurrentPassword; }
